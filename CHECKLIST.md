@@ -80,10 +80,10 @@
 
 ## 🏥 Phase 3: Major Project — Healthcare / Clinic Management System
 ### Architecture & Setup
-- [ ] Database Schema Design (MySQL normalized tables with primary & foreign key constraints)
-- [ ] Node.js Express REST API backend architecture
-- [ ] Modular HTML5/CSS3/JS Frontend structure
-- [ ] Environment variable security (`.env.example` safe configuration template)
+- [x] Database Schema Design (MySQL normalized tables with primary & foreign key constraints)
+- [x] Node.js Express REST API backend architecture
+- [x] Modular HTML5/CSS3/JS Frontend structure
+- [x] Environment variable security (`.env.example` safe configuration template)
 
 ### User Authentication & Security
 - [ ] User registration endpoint & page

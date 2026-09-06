@@ -1,0 +1,25 @@
+{
+  "name": "carenova-health-server",
+  "version": "1.0.0",
+  "description": "CareNova Health Express REST API Server — iNeuBytes Internship Major Project Phase 3A Foundation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "carenova",
+    "healthcare",
+    "express",
+    "mysql",
+    "api"
+  ],
+  "author": "Sangeetha (INBT022861)",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7"
+  }
+}

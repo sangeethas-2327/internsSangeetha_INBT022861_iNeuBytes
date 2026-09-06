@@ -1,0 +1,19 @@
+# Major Project Git Ignore Configuration
+
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Environment Variable Secrets
+.env
+server/.env
+*.env.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,58 @@
+/* ============================================================================
+   CareNova Health — Responsive Breakpoint Rules
+   iNeuBytes Web Development Internship — Major Project Phase 3A Foundation
+   ============================================================================ */
+
+/* 1024px Desktop/Laptop */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 2.1rem;
+  }
+}
+
+/* 768px Tablet Breakpoint */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 375px Mobile Breakpoint */
+@media (max-width: 375px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+}

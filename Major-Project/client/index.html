@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareNova Health - Full-Stack Healthcare Management System. iNeuBytes Web Development Internship Major Project Phase 3A Foundation by Sangeetha (INBT022861).">
+  <meta name="author" content="Sangeetha (INBT022861)">
+  <title>CareNova Health — Full-Stack Healthcare Management System | Major Project Phase 3A</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. Header & Navigation Shell
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo" aria-label="CareNova Health Portal Home">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+
+      <nav aria-label="Main Navigation Shell">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="Patient Registration">Register</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="User Login">Login</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="Patient Dashboard">Patient Portal</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="Doctor Dashboard">Doctor Portal</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="Admin Management Dashboard">Admin Console</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="Department Directory">Departments</a></li>
+          <li><a href="#" class="nav-link placeholder" data-module="Appointment System">Appointments</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. Hero Banner
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="phase-badge">
+        ⚙️ Major Project Phase 3A — Full-Stack Project Foundation Established
+      </div>
+      <h1 class="hero-title">CareNova Health Management System</h1>
+      <p class="hero-subtitle">
+        Comprehensive full-stack healthcare administration platform powered by a Node.js + Express REST API backend and MySQL relational database architecture.
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+        <a href="#statusSection" class="btn btn-primary" style="background-color: #FFFFFF; color: #0F4C81;">View System Connectivity</a>
+        <a href="#modulesSection" class="btn btn-outline" style="border-color: #FFFFFF; color: #FFFFFF;">Explore Architecture Plan</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- ==========================================================================
+         3. System Connectivity Status Monitor (Phase 3A Verification)
+         ========================================================================== -->
+    <section id="statusSection" class="status-monitor-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
+        <div>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Full-Stack System Status Monitor</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Real-time connectivity check between Frontend Shell and Express Backend API (`GET /api/health`)</p>
+        </div>
+        <div id="apiStatusPill" class="status-pill pending">
+          ⏳ Checking Express Server...
+        </div>
+      </div>
+
+      <div class="status-grid">
+        <div class="status-item">
+          <label>Express Backend API</label>
+          <span id="apiStatusText">Connecting...</span>
+        </div>
+
+        <div class="status-item">
+          <label>MySQL Database Status</label>
+          <span id="dbStatusText">Querying pool...</span>
+        </div>
+
+        <div class="status-item">
+          <label>Last Verified Timestamp</label>
+          <span id="timestampText">--:--:--</span>
+        </div>
+
+        <div class="status-item">
+          <label>Project Phase</label>
+          <span>Phase 3A — Foundation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. Major Project Architecture Roadmap
+         ========================================================================== -->
+    <section id="modulesSection" style="margin-top: 3rem; margin-bottom: 3rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">Major Project Architectural Modules</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Overview of established foundation vs planned application business modules.</p>
+
+      <div class="module-grid">
+        <!-- Foundation Card -->
+        <div class="module-card">
+          <div>
+            <span class="module-tag implemented">Phase 3A Established</span>
+            <h3 class="card-title">Full-Stack Foundation</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Layered Express backend, RESTful health check endpoint (`/api/health`), MySQL relational DDL schema, demo seed script, and environment configuration.
+            </p>
+          </div>
+          <a href="#" class="btn btn-outline" style="width: 100%; font-size: 0.85rem;">Foundation Operational</a>
+        </div>
+
+        <!-- Auth Module Card -->
+        <div class="module-card">
+          <div>
+            <span class="module-tag planned">Phase 3B Planned</span>
+            <h3 class="card-title">Authentication & RBAC</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              User registration, login authentication, password hashing (`bcryptjs`), JWT token authorization, and role-based route access controls (Patient, Doctor, Admin).
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline placeholder-action" data-module="Authentication & RBAC" style="width: 100%; font-size: 0.85rem;">Planned for Phase 3B</button>
+        </div>
+
+        <!-- Patient Module Card -->
+        <div class="module-card">
+          <div>
+            <span class="module-tag planned">Phase 3C Planned</span>
+            <h3 class="card-title">Patient Portal</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Self-service patient dashboard, doctor search & booking, appointment rescheduling/cancellation, upcoming reminders, and medical record viewing.
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline placeholder-action" data-module="Patient Portal" style="width: 100%; font-size: 0.85rem;">Planned for Phase 3C</button>
+        </div>
+
+        <!-- Doctor Module Card -->
+        <div class="module-card">
+          <div>
+            <span class="module-tag planned">Phase 3C Planned</span>
+            <h3 class="card-title">Doctor Portal</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Schedule manager, assigned patient list, consultation status updates (`Confirmed`, `Completed`, `Cancelled`), and clinical notes recording.
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline placeholder-action" data-module="Doctor Portal" style="width: 100%; font-size: 0.85rem;">Planned for Phase 3C</button>
+        </div>
+
+        <!-- Admin Module Card -->
+        <div class="module-card">
+          <div>
+            <span class="module-tag planned">Phase 3D Planned</span>
+            <h3 class="card-title">Admin Command Console</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              System-wide metrics & analytics dashboard, doctor onboarding, patient management, clinical department CRUD manager, and global appointment overrides.
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline placeholder-action" data-module="Admin Command Console" style="width: 100%; font-size: 0.85rem;">Planned for Phase 3D</button>
+        </div>
+
+        <!-- Postman & QA Card -->
+        <div class="module-card">
+          <div>
+            <span class="module-tag planned">Phase 3E Planned</span>
+            <h3 class="card-title">Postman & QA Verification</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Comprehensive Postman API test collection, automated functional QA suite, responsive breakpoint validation, and master documentation deliverable.
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline placeholder-action" data-module="Postman & QA Verification" style="width: 100%; font-size: 0.85rem;">Planned for Phase 3E</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <p>&copy; 2026 CareNova Health Full-Stack System. iNeuBytes Major Project by Sangeetha (INBT022861).</p>
+      <div style="font-size: 0.85rem; color: #94A3B8;">
+        Course ID: WBINB10726 | Tech Stack: HTML5, CSS3, Vanilla JS, Node.js, Express, MySQL
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

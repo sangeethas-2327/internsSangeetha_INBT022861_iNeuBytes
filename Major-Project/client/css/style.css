@@ -1,0 +1,167 @@
+/* ============================================================================
+   CareNova Health — Core Visual Tokens & Global Styling
+   iNeuBytes Web Development Internship — Major Project Phase 3A Foundation
+   ============================================================================ */
+
+:root {
+  --primary-color: #0F4C81;
+  --primary-hover: #0B3A63;
+  --secondary-color: #0D9488;
+  --secondary-hover: #09746B;
+  --accent-color: #38BDF8;
+  
+  --bg-main: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-accent: #EFF6FF;
+  
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  
+  --border-color: #E2E8F0;
+  --border-focus: #0F4C81;
+  
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --error-color: #EF4444;
+  --info-color: #3B82F6;
+  
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+  --transition-fast: 0.2s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Header & Navbar */
+.site-header {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-color);
+  background-color: var(--bg-accent);
+}
+
+.nav-link.placeholder {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  position: relative;
+}
+
+.nav-link.placeholder::after {
+  content: 'Plan';
+  font-size: 0.65rem;
+  background: var(--bg-accent);
+  color: var(--primary-color);
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-left: 4px;
+  font-weight: 700;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #0F4C81 0%, #0D9488 100%);
+  color: #FFFFFF;
+  padding: 4rem 0 3.5rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  color: #E2E8F0;
+  font-weight: 400;
+}
+
+.phase-badge {
+  display: inline-block;
+  background-color: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+.site-footer {
+  background-color: #0F172A;
+  color: #94A3B8;
+  padding: 2.5rem 0;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
