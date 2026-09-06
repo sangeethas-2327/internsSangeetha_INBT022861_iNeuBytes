@@ -26,8 +26,16 @@ function authMiddleware(req, res, next) {
       });
     }
 
+    // Verify JWT Secret availability
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      return res.status(500).json({
+        success: false,
+        message: 'Server configuration error: JWT_SECRET environment variable is missing.'
+      });
+    }
+
     // Verify JWT Signature & Expiration
-    const jwtSecret = process.env.JWT_SECRET || 'replace_with_a_long_random_secret';
     const decoded = jwt.verify(token, jwtSecret);
 
     // Attach authenticated user identity payload to request object
