@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Appointments — CareNova Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="patient-dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="doctors.html" class="nav-link">Doctors & Book</a></li>
+          <li><a href="appointments.html" class="nav-link active">My Appointments</a></li>
+          <li><a href="medical-records.html" class="nav-link">Medical Records</a></li>
+          <li><a href="patient-profile.html" class="nav-link">My Profile</a></li>
+        </ul>
+      </nav>
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <main class="container" style="margin-top: 2rem; margin-bottom: 4rem;">
+    <div class="status-monitor-card" style="margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--primary-color);">My Appointment History</h1>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">View, reschedule, or cancel your scheduled consultations.</p>
+        </div>
+        <a href="doctors.html" class="btn btn-primary" style="font-size: 0.85rem;">+ Book New Appointment</a>
+      </div>
+    </div>
+
+    <!-- Appointments Table -->
+    <div class="status-monitor-card">
+      <div style="overflow-x: auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Reference ID</th>
+              <th>Doctor / Department</th>
+              <th>Date</th>
+              <th>Time Slot</th>
+              <th>Fee</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="appointmentsTableBody">
+            <tr><td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">Loading appointment history...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Reschedule Modal -->
+  <div id="rescheduleModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; padding: 1rem;">
+    <div class="status-monitor-card" style="width: 100%; max-width: 500px; background: #FFFFFF;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--primary-color);">Reschedule Appointment</h3>
+        <button onclick="PatientApp.closeRescheduleModal()" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">✕ Close</button>
+      </div>
+
+      <div id="rescheduleAlert" class="form-alert" style="display: none;"></div>
+
+      <input type="hidden" id="rescheduleApptId">
+      <input type="hidden" id="rescheduleDoctorId">
+
+      <div class="form-group">
+        <label for="rescheduleDate">New Consultation Date</label>
+        <input type="date" id="rescheduleDate" class="form-input">
+      </div>
+
+      <div class="form-group">
+        <label>Available Time Slots</label>
+        <div id="rescheduleSlotContainer" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem;">
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Select date first...</span>
+        </div>
+      </div>
+
+      <button type="button" id="submitRescheduleBtn" onclick="PatientApp.submitReschedule()" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Reschedule</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <p>&copy; 2026 CareNova Health</p>
+      <div style="font-size: 0.85rem; color: #94A3B8;">Intern: Sangeetha (INBT022861)</div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/patient.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => PatientApp.initAppointmentsView());
+  </script>
+</body>
+</html>

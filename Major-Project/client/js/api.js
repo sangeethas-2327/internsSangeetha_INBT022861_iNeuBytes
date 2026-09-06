@@ -1,6 +1,6 @@
 // ============================================================================
 // CareNova Health — Client API Connectivity Layer
-// iNeuBytes Web Development Internship — Major Project Phase 3B Auth & RBAC
+// iNeuBytes Web Development Internship — Major Project Phase 3C Patient Module
 // ============================================================================
 
 const ApiService = {
@@ -88,5 +88,76 @@ const ApiService = {
     return this.request(`/test/${role}`, {
       method: 'GET'
     });
+  },
+
+  // --- Phase 3C Patient Module Methods ---
+
+  // Patient Profile
+  async getPatientProfile() {
+    return this.request('/patients/me', { method: 'GET' });
+  },
+
+  async updatePatientProfile(profileData) {
+    return this.request('/patients/me', {
+      method: 'PUT',
+      body: JSON.stringify(profileData)
+    });
+  },
+
+  // Departments
+  async getDepartments() {
+    return this.request('/departments', { method: 'GET' });
+  },
+
+  // Doctors
+  async getDoctors(queryString = '') {
+    const ep = queryString ? `/doctors?${queryString}` : '/doctors';
+    return this.request(ep, { method: 'GET' });
+  },
+
+  async getDoctorById(id) {
+    return this.request(`/doctors/${id}`, { method: 'GET' });
+  },
+
+  async getDoctorAvailableSlots(id, date) {
+    return this.request(`/doctors/${id}/available-slots?date=${encodeURIComponent(date)}`, { method: 'GET' });
+  },
+
+  // Appointments
+  async bookAppointment(appointmentData) {
+    return this.request('/appointments', {
+      method: 'POST',
+      body: JSON.stringify(appointmentData)
+    });
+  },
+
+  async getMyAppointments() {
+    return this.request('/appointments/my', { method: 'GET' });
+  },
+
+  async getAppointmentById(id) {
+    return this.request(`/appointments/${id}`, { method: 'GET' });
+  },
+
+  async rescheduleAppointment(id, rescheduleData) {
+    return this.request(`/appointments/${id}/reschedule`, {
+      method: 'PUT',
+      body: JSON.stringify(rescheduleData)
+    });
+  },
+
+  async cancelAppointment(id) {
+    return this.request(`/appointments/${id}/cancel`, {
+      method: 'PUT'
+    });
+  },
+
+  // Medical Records
+  async getMyMedicalRecords() {
+    return this.request('/medical-records/my', { method: 'GET' });
+  },
+
+  async getMedicalRecordById(id) {
+    return this.request(`/medical-records/${id}`, { method: 'GET' });
   }
 };

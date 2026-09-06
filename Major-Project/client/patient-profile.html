@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — CareNova Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="patient-dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="doctors.html" class="nav-link">Doctors & Book</a></li>
+          <li><a href="appointments.html" class="nav-link">My Appointments</a></li>
+          <li><a href="medical-records.html" class="nav-link">Medical Records</a></li>
+          <li><a href="patient-profile.html" class="nav-link active">My Profile</a></li>
+        </ul>
+      </nav>
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 800px; margin-top: 2.5rem; margin-bottom: 4rem;">
+    <div class="status-monitor-card">
+      <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--primary-color); margin-bottom: 0.5rem;">👤 Patient Profile Management</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">View and update your contact information, emergency contacts, and medical history summary.</p>
+
+      <div id="profileAlert" class="form-alert" style="display: none;"></div>
+
+      <form id="patientProfileForm">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required class="form-input">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="email">Email Address (Primary Login)</label>
+            <input type="email" id="email" disabled class="form-input" style="background-color: #F1F5F9;">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required class="form-input">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" id="dateOfBirth" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" class="form-input">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bloodGroup">Blood Group</label>
+            <input type="text" id="bloodGroup" placeholder="e.g. O+, A+, B-" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Residential Address</label>
+          <textarea id="address" rows="2" class="form-input" placeholder="Full address details"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="emergencyContact">Emergency Contact Number</label>
+          <input type="tel" id="emergencyContact" placeholder="+91 90000 00000" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="medicalHistorySummary">Medical History & Allergies Summary</label>
+          <textarea id="medicalHistorySummary" rows="3" class="form-input" placeholder="e.g. No drug allergies. Mild seasonal asthma."></textarea>
+        </div>
+
+        <button type="submit" id="saveProfileBtn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Profile Changes</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <p>&copy; 2026 CareNova Health</p>
+      <div style="font-size: 0.85rem; color: #94A3B8;">Intern: Sangeetha (INBT022861)</div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/patient.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => PatientApp.initProfile());
+  </script>
+</body>
+</html>

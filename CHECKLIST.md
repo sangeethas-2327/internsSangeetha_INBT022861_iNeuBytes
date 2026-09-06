@@ -96,12 +96,12 @@
   - [x] Admin role authorization
 
 ### Patient Module
-- [ ] Patient Dashboard overview
-- [ ] Patient profile management & update
-- [ ] Book new appointment interface
-- [ ] View patient appointment history
-- [ ] View medical / consultation records
-- [ ] Upcoming appointment notifications
+- [x] Patient Dashboard overview
+- [x] Patient profile management & update
+- [x] Book new appointment interface
+- [x] View patient appointment history
+- [x] View medical / consultation records
+- [x] Upcoming appointment notifications
 
 ### Doctor Module
 - [ ] Doctor Dashboard overview
@@ -125,11 +125,11 @@
 - [ ] Department-wise doctor listings
 
 ### Appointment Lifecycle & CRUD
-- [ ] Book appointment
-- [ ] Reschedule appointment
-- [ ] Cancel appointment
-- [ ] Status transitions: `Pending` → `Confirmed` → `Completed` / `Cancelled`
-- [ ] Double-booking & slot validation logic
+- [x] Book appointment (Patient)
+- [x] Reschedule appointment (Patient)
+- [x] Cancel appointment (Patient)
+- [ ] Status transitions: `Pending` → `Confirmed` → `Completed` / `Cancelled` (Doctor/Admin)
+- [x] Double-booking & slot validation logic
 
 ---
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Medical Records — CareNova Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="patient-dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="doctors.html" class="nav-link">Doctors & Book</a></li>
+          <li><a href="appointments.html" class="nav-link">My Appointments</a></li>
+          <li><a href="medical-records.html" class="nav-link active">Medical Records</a></li>
+          <li><a href="patient-profile.html" class="nav-link">My Profile</a></li>
+        </ul>
+      </nav>
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <main class="container" style="margin-top: 2rem; margin-bottom: 4rem;">
+    <div class="status-monitor-card" style="margin-bottom: 2rem;">
+      <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--primary-color);">My Personal Medical Records</h1>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">Read-only access to clinical diagnoses, doctor notes, digital prescriptions, and recommended follow-up schedules.</p>
+    </div>
+
+    <!-- Medical Records List Container -->
+    <div id="medicalRecordsContainer">
+      <div style="text-align: center; padding: 3rem; color: var(--text-muted);">Loading medical records history...</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+      <p>&copy; 2026 CareNova Health</p>
+      <div style="font-size: 0.85rem; color: #94A3B8;">Intern: Sangeetha (INBT022861)</div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/patient.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => PatientApp.initMedicalRecordsView());
+  </script>
+</body>
+</html>
