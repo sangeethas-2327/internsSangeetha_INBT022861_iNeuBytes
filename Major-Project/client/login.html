@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareNova Health - User Login. iNeuBytes Web Development Internship Major Project Phase 3B by Sangeetha (INBT022861).">
+  <meta name="author" content="Sangeetha (INBT022861)">
+  <title>User Login — CareNova Health Management System | Major Project Phase 3B</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Header Shell -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="login.html" class="nav-link active">Login</a></li>
+          <li><a href="register.html" class="nav-link">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 2rem 1rem;">
+    <div class="card" style="width: 100%; max-width: 440px; padding: 2.25rem;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-color);">Account Login</h1>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+          Sign in to access your Patient, Doctor, or Admin portal.
+        </p>
+      </div>
+
+      <!-- Alert Message Box -->
+      <div id="authAlert" class="form-alert" style="display: none; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.25rem; font-size: 0.88rem; font-weight: 500;"></div>
+
+      <form id="loginForm" novalidate>
+        <div style="margin-bottom: 1.25rem;">
+          <label for="loginEmail" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Email Address <span style="color: var(--error-color);">*</span></label>
+          <input type="email" id="loginEmail" name="email" class="form-control" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="e.g., patient@example.com" required>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label for="loginPassword" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Password <span style="color: var(--error-color);">*</span></label>
+          <input type="password" id="loginPassword" name="password" class="form-control" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">Sign In</button>
+      </form>
+
+      <!-- Demo Accounts Hints Box -->
+      <div style="margin-top: 1.5rem; padding: 1rem; background-color: var(--bg-main); border-radius: 8px; font-size: 0.8rem; border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-color); display: block; margin-bottom: 0.35rem;">ℹ️ Phase 3B Demonstration Seed Accounts:</strong>
+        <ul style="list-style-type: none; padding-left: 0; line-height: 1.5; color: var(--text-muted);">
+          <li>• <strong>Admin:</strong> <code>admin@carenova.health</code> (Pass: <code>demo123</code>)</li>
+          <li>• <strong>Doctor:</strong> <code>sarah.jenkins@carenova.health</code> (Pass: <code>demo123</code>)</li>
+          <li>• <strong>Patient:</strong> <code>sangeetha.patient@example.com</code> (Pass: <code>demo123</code>)</li>
+        </ul>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.25rem; font-size: 0.88rem; color: var(--text-muted);">
+        Don't have a patient account yet? <a href="register.html" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Register Here</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container" style="text-align: center;">
+      <p>&copy; 2026 CareNova Health System. iNeuBytes Major Project Phase 3B by Sangeetha (INBT022861).</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      const authAlert = document.getElementById('authAlert');
+      const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        if (!email || !password) {
+          authAlert.className = 'form-alert error';
+          authAlert.style.display = 'block';
+          authAlert.textContent = 'Please enter both email address and password.';
+          return;
+        }
+
+        AuthManager.handleLogin(email, password, authAlert, loginSubmitBtn);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -28,6 +28,7 @@ logs/
 tmp/
 temp/
 *.tmp
+scratch/
 
 # MySQL temporary dumps / backups containing data
 *.sql.bak

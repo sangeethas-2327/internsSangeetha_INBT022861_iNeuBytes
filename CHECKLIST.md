@@ -86,14 +86,14 @@
 - [x] Environment variable security (`.env.example` safe configuration template)
 
 ### User Authentication & Security
-- [ ] User registration endpoint & page
-- [ ] Secure user login endpoint & page
-- [ ] Password hashing (no plain text storage)
-- [ ] Secure token/session handling
-- [ ] Role-Based Access Control (RBAC) middleware:
-  - [ ] Patient role authorization
-  - [ ] Doctor role authorization
-  - [ ] Admin role authorization
+- [x] User registration endpoint & page
+- [x] Secure user login endpoint & page
+- [x] Password hashing (no plain text storage)
+- [x] Secure token/session handling
+- [x] Role-Based Access Control (RBAC) middleware:
+  - [x] Patient role authorization
+  - [x] Doctor role authorization
+  - [x] Admin role authorization
 
 ### Patient Module
 - [ ] Patient Dashboard overview

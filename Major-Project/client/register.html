@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareNova Health - Patient Registration. iNeuBytes Web Development Internship Major Project Phase 3B by Sangeetha (INBT022861).">
+  <meta name="author" content="Sangeetha (INBT022861)">
+  <title>Patient Registration — CareNova Health Management System | Major Project Phase 3B</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Header Shell -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="login.html" class="nav-link">Login</a></li>
+          <li><a href="register.html" class="nav-link active">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="display: flex; justify-content: center; align-items: center; min-height: 75vh; padding: 2rem 1rem;">
+    <div class="card" style="width: 100%; max-width: 520px; padding: 2.25rem;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--primary-color);">Patient Registration</h1>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+          Create a CareNova Health patient account to book and manage appointments.
+        </p>
+      </div>
+
+      <!-- Alert Message Box -->
+      <div id="registerAlert" class="form-alert" style="display: none; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.25rem; font-size: 0.88rem; font-weight: 500;"></div>
+
+      <form id="registerForm" novalidate>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+          <div>
+            <label for="firstName" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">First Name <span style="color: var(--error-color);">*</span></label>
+            <input type="text" id="firstName" name="firstName" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="e.g., Sangeetha" required>
+          </div>
+          <div>
+            <label for="lastName" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Last Name <span style="color: var(--error-color);">*</span></label>
+            <input type="text" id="lastName" name="lastName" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="e.g., Gowda" required>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label for="regEmail" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Email Address <span style="color: var(--error-color);">*</span></label>
+          <input type="email" id="regEmail" name="email" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="sangeetha@example.com" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+          <div>
+            <label for="regPhone" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Phone Number <span style="color: var(--error-color);">*</span></label>
+            <input type="tel" id="regPhone" name="phone" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="9876543210" required>
+          </div>
+          <div>
+            <label for="regGender" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Gender</label>
+            <select id="regGender" name="gender" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; background-color: #FFF;">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label for="regPassword" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.35rem;">Password <span style="color: var(--error-color);">*</span></label>
+          <input type="password" id="regPassword" name="password" style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem;" placeholder="Minimum 6 characters" required>
+        </div>
+
+        <button type="submit" id="regSubmitBtn" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">Register Patient Account</button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.25rem; font-size: 0.88rem; color: var(--text-muted);">
+        Already have a CareNova Health account? <a href="login.html" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Sign In Here</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container" style="text-align: center;">
+      <p>&copy; 2026 CareNova Health System. iNeuBytes Major Project Phase 3B by Sangeetha (INBT022861).</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const registerForm = document.getElementById('registerForm');
+      const registerAlert = document.getElementById('registerAlert');
+      const regSubmitBtn = document.getElementById('regSubmitBtn');
+
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const gender = document.getElementById('regGender').value;
+        const password = document.getElementById('regPassword').value;
+
+        if (!firstName || !lastName || !email || !phone || !password) {
+          registerAlert.className = 'form-alert error';
+          registerAlert.style.display = 'block';
+          registerAlert.textContent = 'Please complete all required fields.';
+          return;
+        }
+
+        if (password.length < 6) {
+          registerAlert.className = 'form-alert error';
+          registerAlert.style.display = 'block';
+          registerAlert.textContent = 'Password must be at least 6 characters long.';
+          return;
+        }
+
+        AuthManager.handleRegister({ firstName, lastName, email, phone, gender, password }, registerAlert, regSubmitBtn);
+      });
+    });
+  </script>
+</body>
+</html>

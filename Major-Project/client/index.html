@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CareNova Health - Full-Stack Healthcare Management System. iNeuBytes Web Development Internship Major Project Phase 3A Foundation by Sangeetha (INBT022861).">
+  <meta name="description" content="CareNova Health - Full-Stack Healthcare Management System. iNeuBytes Web Development Internship Major Project Phase 3B Auth & RBAC by Sangeetha (INBT022861).">
   <meta name="author" content="Sangeetha (INBT022861)">
-  <title>CareNova Health — Full-Stack Healthcare Management System | Major Project Phase 3A</title>
+  <title>CareNova Health — Full-Stack Healthcare Management System | Major Project Phase 3B</title>
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,6 @@
       <nav aria-label="Main Navigation Shell">
         <ul class="nav-menu">
           <li><a href="index.html" class="nav-link active">Home</a></li>
-          <li><a href="#" class="nav-link placeholder" data-module="Patient Registration">Register</a></li>
-          <li><a href="#" class="nav-link placeholder" data-module="User Login">Login</a></li>
           <li><a href="#" class="nav-link placeholder" data-module="Patient Dashboard">Patient Portal</a></li>
           <li><a href="#" class="nav-link placeholder" data-module="Doctor Dashboard">Doctor Portal</a></li>
           <li><a href="#" class="nav-link placeholder" data-module="Admin Management Dashboard">Admin Console</a></li>
@@ -40,6 +38,14 @@
           <li><a href="#" class="nav-link placeholder" data-module="Appointment System">Appointments</a></li>
         </ul>
       </nav>
+
+      <!-- User Auth State Badge / Action Buttons -->
+      <div id="navUserContainer">
+        <div style="display: flex; gap: 0.5rem;">
+          <a href="login.html" class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">Login</a>
+          <a href="register.html" class="btn btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">Register</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -49,28 +55,28 @@
   <section class="hero-section">
     <div class="container">
       <div class="phase-badge">
-        ⚙️ Major Project Phase 3A — Full-Stack Project Foundation Established
+        🔐 Major Project Phase 3B — Authentication & RBAC Implemented & Operational
       </div>
       <h1 class="hero-title">CareNova Health Management System</h1>
       <p class="hero-subtitle">
-        Comprehensive full-stack healthcare administration platform powered by a Node.js + Express REST API backend and MySQL relational database architecture.
+        Full-stack healthcare administration platform featuring secure `bcryptjs` password hashing, HttpOnly cookie JWT session authorization, and strict Role-Based Access Control (Patient, Doctor, Admin).
       </p>
       <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
-        <a href="#statusSection" class="btn btn-primary" style="background-color: #FFFFFF; color: #0F4C81;">View System Connectivity</a>
-        <a href="#modulesSection" class="btn btn-outline" style="border-color: #FFFFFF; color: #FFFFFF;">Explore Architecture Plan</a>
+        <a href="login.html" class="btn btn-primary" style="background-color: #FFFFFF; color: #0F4C81;">Sign In to Portal</a>
+        <a href="register.html" class="btn btn-outline" style="border-color: #FFFFFF; color: #FFFFFF;">Register Patient Account</a>
       </div>
     </div>
   </section>
 
   <main class="container">
     <!-- ==========================================================================
-         3. System Connectivity Status Monitor (Phase 3A Verification)
+         3. System Connectivity & Auth Session Monitor (Phase 3B Verification)
          ========================================================================== -->
     <section id="statusSection" class="status-monitor-card">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
         <div>
-          <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Full-Stack System Status Monitor</h2>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Real-time connectivity check between Frontend Shell and Express Backend API (`GET /api/health`)</p>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Full-Stack System & Authentication Monitor</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Real-time status check for Express API, MySQL connection, and active JWT cookie session</p>
         </div>
         <div id="apiStatusPill" class="status-pill pending">
           ⏳ Checking Express Server...
@@ -89,14 +95,30 @@
         </div>
 
         <div class="status-item">
-          <label>Last Verified Timestamp</label>
-          <span id="timestampText">--:--:--</span>
+          <label>Active User Session</label>
+          <span id="userSessionText">Checking session...</span>
         </div>
 
         <div class="status-item">
           <label>Project Phase</label>
-          <span>Phase 3A — Foundation</span>
+          <span>Phase 3B — Auth & RBAC</span>
         </div>
+      </div>
+
+      <!-- Phase 3B RBAC Test Suite Interactor -->
+      <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed var(--border-color);">
+        <h3 style="font-size: 1rem; font-weight: 700; color: var(--primary-color); margin-bottom: 0.5rem;">🧪 Live Phase 3B Role-Based Access Control (RBAC) Verification Panel</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Click the test buttons below to verify that the Express server enforces role restrictions (`requireRole`) against your active authenticated session:
+        </p>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <button id="testPatientBtn" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.4rem 0.85rem;">Test Patient Endpoint</button>
+          <button id="testDoctorBtn" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.4rem 0.85rem;">Test Doctor Endpoint</button>
+          <button id="testAdminBtn" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.4rem 0.85rem;">Test Admin Endpoint</button>
+        </div>
+
+        <div id="rbacTestResult" style="display: none; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.85rem; font-family: monospace;"></div>
       </div>
     </section>
 
@@ -105,7 +127,7 @@
          ========================================================================== -->
     <section id="modulesSection" style="margin-top: 3rem; margin-bottom: 3rem;">
       <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">Major Project Architectural Modules</h2>
-      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Overview of established foundation vs planned application business modules.</p>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Overview of established foundation and auth modules vs upcoming business portals.</p>
 
       <div class="module-grid">
         <!-- Foundation Card -->
@@ -123,13 +145,13 @@
         <!-- Auth Module Card -->
         <div class="module-card">
           <div>
-            <span class="module-tag planned">Phase 3B Planned</span>
+            <span class="module-tag implemented">Phase 3B Established</span>
             <h3 class="card-title">Authentication & RBAC</h3>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
-              User registration, login authentication, password hashing (`bcryptjs`), JWT token authorization, and role-based route access controls (Patient, Doctor, Admin).
+              User registration, login authentication, bcryptjs password hashing, HttpOnly JWT cookies, and role middleware guards (`requireRole`).
             </p>
           </div>
-          <button type="button" class="btn btn-outline placeholder-action" data-module="Authentication & RBAC" style="width: 100%; font-size: 0.85rem;">Planned for Phase 3B</button>
+          <a href="login.html" class="btn btn-primary" style="width: 100%; font-size: 0.85rem;">Test Login & Registration</a>
         </div>
 
         <!-- Patient Module Card -->
@@ -188,7 +210,7 @@
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
       <p>&copy; 2026 CareNova Health Full-Stack System. iNeuBytes Major Project by Sangeetha (INBT022861).</p>
       <div style="font-size: 0.85rem; color: #94A3B8;">
-        Course ID: WBINB10726 | Tech Stack: HTML5, CSS3, Vanilla JS, Node.js, Express, MySQL
+        Course ID: WBINB10726 | Tech Stack: HTML5, CSS3, Vanilla JS, Node.js, Express, MySQL, bcryptjs, JWT
       </div>
     </div>
   </footer>
@@ -197,6 +219,7 @@
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
