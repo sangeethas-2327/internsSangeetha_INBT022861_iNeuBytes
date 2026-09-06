@@ -6,7 +6,7 @@
 -- ============================================================================
 -- DEMO CREDENTIAL STRATEGY NOTE:
 -- All demo user accounts use bcrypt hashed passwords corresponding to: "demo123"
--- Hash: $2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6 (bcrypt demo hash)
+-- Hash: $2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq (bcrypt demo hash)
 -- Plaintext passwords are NEVER stored in production.
 -- ============================================================================
 
@@ -25,17 +25,17 @@ ON DUPLICATE KEY UPDATE name=VALUES(name);
 -- 2. Seed Demo Users (Admin, Doctors, Patients)
 INSERT INTO users (id, email, password_hash, role, first_name, last_name, phone) VALUES
 -- Admin User
-(1, 'admin@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'admin', 'System', 'Administrator', '+91 99000 11223'),
+(1, 'admin@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'admin', 'System', 'Administrator', '+91 99000 11223'),
 -- Doctor Users
-(2, 'sarah.jenkins@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'doctor', 'Sarah', 'Jenkins', '+91 98765 11101'),
-(3, 'marcus.vance@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'doctor', 'Marcus', 'Vance', '+91 98765 11102'),
-(4, 'elena.rostova@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'doctor', 'Elena', 'Rostova', '+91 98765 11103'),
-(5, 'david.chen@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'doctor', 'David', 'Chen', '+91 98765 11104'),
-(6, 'priya.nair@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'doctor', 'Priya', 'Nair', '+91 98765 11105'),
-(7, 'rajesh.sharma@carenova.health', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'doctor', 'Rajesh', 'Sharma', '+91 98765 11106'),
+(2, 'sarah.jenkins@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'doctor', 'Sarah', 'Jenkins', '+91 98765 11101'),
+(3, 'marcus.vance@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'doctor', 'Marcus', 'Vance', '+91 98765 11102'),
+(4, 'elena.rostova@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'doctor', 'Elena', 'Rostova', '+91 98765 11103'),
+(5, 'david.chen@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'doctor', 'David', 'Chen', '+91 98765 11104'),
+(6, 'priya.nair@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'doctor', 'Priya', 'Nair', '+91 98765 11105'),
+(7, 'rajesh.sharma@carenova.health', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'doctor', 'Rajesh', 'Sharma', '+91 98765 11106'),
 -- Patient Users
-(8, 'sangeetha.patient@example.com', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'patient', 'Sangeetha', 'Gowda', '+91 98765 43210'),
-(9, 'rahul.verma@example.com', '$2a$10$wT8m9wJ9P9GkFkH8lW9M3.7Bw9b6qJ1z6y5x4w3v2u1t0s9r8q7p6', 'patient', 'Rahul', 'Verma', '+91 98765 43211')
+(8, 'sangeetha.patient@example.com', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'patient', 'Sangeetha', 'Gowda', '+91 98765 43210'),
+(9, 'rahul.verma@example.com', '$2b$10$wTKvSbQj1NHr65EHlGimD.thWkKTTcWwR7xc66zXNHJumsq/owGTq', 'patient', 'Rahul', 'Verma', '+91 98765 43211')
 ON DUPLICATE KEY UPDATE email=VALUES(email);
 
 -- 3. Seed Doctors Profiles
