@@ -766,5 +766,275 @@ Explicitly excluded to maintain internship focus:
 
 ---
 
+## 29. PHASE 3D — DOCTOR MODULE MASTER IMPLEMENTATION SPECIFICATION
+
+### 29.1 Doctor Module Objective
+The Doctor Module provides a secure, role-restricted clinical workstation for healthcare providers at CareNova Health. It enables authenticated doctors to manage their professional profile, set weekly schedule availability, review assigned patient appointment rosters, perform status transitions (`Confirmed` -> `Completed` / `Cancelled`), conduct clinical consultations, and record medical records (diagnoses, prescriptions, follow-up dates) in MySQL while enforcing strict IDOR boundary protection between doctors and patients.
+
+### 29.2 Complete Requirements Mapping
+| Internship Requirement | Doctor Feature | Frontend View | Backend REST API | MySQL Database Entity | Verification Method |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Doctor Profile Management** | View & Edit Profile, Fee, Bio, Slots | `client/doctor/profile.html` | `GET /api/doctors/me`<br>`PUT /api/doctors/me` | `doctors`, `users` | Postman Test 02 & Doctor Profile UI |
+| **Schedule & Availability** | Days & Slot Configuration | `client/doctor/profile.html` | `PUT /api/doctors/me/schedule` | `doctors.available_days`, `available_slots` | Postman & Patient Booking Conflict Test |
+| **Assigned Appointments Roster** | View & Filter Appointments | `client/doctor/appointments.html` | `GET /api/doctors/me/appointments` | `appointments`, `patients`, `users` | Date/Status Filter QA Test |
+| **Doctor Dashboard Metrics** | Today/Upcoming & Status Counts | `client/doctor/index.html` | `GET /api/doctors/me/dashboard` | `appointments` aggregate SQL | Dashboard Metric Verification Test |
+| **Appointment Lifecycle Update** | Status Transitions (`Completed`/`Cancelled`) | `client/doctor/appointments.html` | `PUT /api/doctors/me/appointments/:id/status` | `appointments.status` | State Machine Transition Test |
+| **Consultation & Clinical Notes** | Record Diagnosis & Prescription | `client/doctor/consultation.html` | `POST /api/doctors/me/appointments/:id/consultation` | `medical_records`, `appointments` | Consultation Submission QA Test |
+| **Medical Record Management** | View & Update Authored Records | `client/doctor/records.html` | `GET /api/doctors/me/records`<br>`PUT /api/medical-records/:id` | `medical_records` | Ownership & Boundary Integrity Test |
+| **IDOR & Boundary Protection** | Cross-Doctor / Cross-Role Isolation | Middleware Guards | `authMiddleware` + `requireRole('doctor')` | Query `WHERE doctor_id = req.doctor.id` | Postman 403 Forbidden Security Test |
+
+### 29.3 Doctor Role Responsibilities
+- Manage personal clinical profile (qualification, experience, consultation fee, bio).
+- Configure weekly working days and daily time slot availability grid.
+- View and search assigned patient consultations by date and status.
+- Inspect patient details, medical history summaries, and past consultation notes for assigned patients.
+- Transition appointment lifecycle states (`Confirmed` -> `Completed` or `Cancelled`).
+- Author official medical records containing clinical diagnoses, prescriptions, physician notes, and follow-up dates upon consultation completion.
+- Maintain patient confidentiality by preventing unauthorized disclosure of non-assigned patient data.
+
+### 29.4 Doctor Authentication and Role Authorization
+- **Authentication**: Authenticated via HttpOnly JWT cookie `token` issued at `POST /api/auth/login`.
+- **Role Verification**: Requests are filtered through `authMiddleware` (validating JWT and setting `req.user = { id, email, role }`) followed by `requireRole('doctor')` (rejecting non-doctors with `403 Forbidden`).
+- **Doctor Identity Resolution**: Controller resolves `req.user.id` to internal doctor record ID via query:
+  `SELECT id FROM doctors WHERE user_id = req.user.id`. If no doctor record exists, returns `403 Forbidden`.
+
+### 29.5 Doctor Profile Management
+- **View Profile (`GET /api/doctors/me`)**: Retrieves first name, last name, email, phone, department name, qualification, experience years, consultation fee, bio, available days (`Mon,Tue,Wed,Thu,Fri`), and available slots array (`["09:00 AM", "10:30 AM", ...]`).
+- **Update Profile (`PUT /api/doctors/me`)**: Allows doctors to edit `qualification`, `experience_years`, `consultation_fee`, `bio`, `available_days`, and `available_slots`.
+- **Data Constraints**: `consultation_fee` must be a positive decimal (`>= 100.00`). `available_days` must be a valid comma-separated string of days. `available_slots` must be a valid JSON array of standard time slots.
+
+### 29.6 Doctor Dashboard Architecture
+- **Metrics Breakdown**:
+  - `todayAppointments`: Count of appointments where `appointment_date = CURDATE()` and status != `'Cancelled'`.
+  - `upcomingAppointments`: Count of appointments where `appointment_date > CURDATE()` and status IN (`'Confirmed'`, `'Rescheduled'`).
+  - `pendingConsultations`: Count of appointments with status `'Confirmed'` or `'Rescheduled'` requiring consultation.
+  - `completedConsultations`: Total count of appointments marked `'Completed'`.
+  - `cancelledAppointments`: Total count of appointments marked `'Cancelled'`.
+- **API Endpoint**: `GET /api/doctors/me/dashboard` returns aggregated stats alongside today's appointment feed.
+
+### 29.7 Doctor Appointment Management
+- **View Assigned Appointments (`GET /api/doctors/me/appointments`)**: Returns appointments where `doctor_id = req.doctor.id`.
+- **Filtering Options**:
+  - `date`: Filter by specific appointment date (`YYYY-MM-DD`).
+  - `status`: Filter by status (`Confirmed`, `Rescheduled`, `Completed`, `Cancelled`).
+  - `patient`: Search by patient name or phone number.
+- **Appointment Detail View (`GET /api/doctors/me/appointments/:id`)**: Retrieves detailed appointment info including patient date of birth, gender, blood group, emergency contact, and medical history summary.
+
+### 29.8 Consultation Workflow
+1. **Initiate Consultation**: Doctor selects a `Confirmed` or `Rescheduled` appointment from the dashboard/roster.
+2. **Clinical Data Input**: Doctor enters:
+   - `diagnosis` (Required text)
+   - `prescription` (Optional text - medication, dosage, frequency)
+   - `doctor_notes` (Optional text - clinical observations, lifestyle advice)
+   - `recommended_followup_date` (Optional date, must be `>= CURDATE()`)
+3. **Submission & Execution (`POST /api/doctors/me/appointments/:id/consultation`)**:
+   - Executes in an **atomic MySQL transaction**:
+     a. Verifies appointment belongs to `req.doctor.id` and status is NOT `'Cancelled'` or `'Completed'`.
+     b. Inserts row into `medical_records` with generated `record_code` (format: `MR-YYYY-XXXX`).
+     c. Updates `appointments.status` to `'Completed'`.
+     d. Commits transaction.
+
+### 29.9 Medical Record Architecture & Ownership
+- **Database Entity**: `medical_records` table linked via foreign keys:
+  - `appointment_id` -> `appointments(id)` (1:1 UNIQUE)
+  - `patient_id` -> `patients(id)` (N:1)
+  - `doctor_id` -> `doctors(id)` (N:1)
+- **Authorization Rules**:
+  - **Doctor**: Authors record upon completing consultation. Can update record via `PUT /api/medical-records/:id` ONLY if `doctor_id = req.doctor.id`. Cannot access or modify records authored by other doctors for patients not assigned to them.
+  - **Patient**: Read-only access strictly restricted to `patient_id = req.patient.id`. Patients CANNOT insert, edit, or delete medical records under any circumstances (`403 Forbidden`).
+  - **Admin**: System-wide read access for clinical audits.
+
+### 29.10 Doctor Schedule and Availability Handling
+- **Default Schedule**: `available_days` default: `'Mon,Tue,Wed,Thu,Fri'`. `available_slots` default: `["09:00 AM", "10:30 AM", "02:00 PM", "04:00 PM"]`.
+- **Conflict Awareness**: Modifying schedule availability does NOT retroactively cancel existing `Confirmed` or `Rescheduled` bookings.
+- **Patient Compatibility**: Patient slot lookup (`GET /api/appointments/available-slots`) dynamically queries doctor's active `available_slots` JSON and filters out slots already booked in `appointments` for that date. Doctor schedule updates immediately reflect on patient booking UI without breaking existing slot locks.
+
+### 29.11 REST API Specification (Doctor Module)
+- `GET /api/doctors/me`: View authenticated doctor profile.
+- `PUT /api/doctors/me`: Update doctor profile fields and availability schedule.
+- `GET /api/doctors/me/dashboard`: Get dashboard statistics and today's schedule feed.
+- `GET /api/doctors/me/appointments`: List assigned appointments with optional `date`, `status`, and `patient` filters.
+- `GET /api/doctors/me/appointments/:id`: Retrieve detailed appointment and patient medical profile.
+- `PUT /api/doctors/me/appointments/:id/status`: Update status to `Cancelled` or `Completed`.
+- `POST /api/doctors/me/appointments/:id/consultation`: Submit consultation notes, diagnosis, prescription, and record medical record in transaction.
+- `GET /api/doctors/me/records`: Retrieve all medical records authored by the authenticated doctor.
+
+### 29.12 REST Architecture Compatibility & Design Rationale
+- Uses `/api/doctors/me/*` sub-routes to guarantee that all queries implicitly scope to `req.doctor.id` resolved from session JWT.
+- Fully compatible with Phase 3C Patient APIs (`/api/patients/me/*`, `/api/appointments/*`). No existing endpoints or URL structures modified.
+
+### 29.13 Security & Ownership Model (IDOR Prevention)
+- **Session-Based Identity Resolution**: Controllers query `doctors` using `WHERE user_id = req.user.id` to derive `doctor.id`.
+- **Client Input Disregard**: Client cannot pass a `doctor_id` parameter to override ownership.
+- **Cross-Doctor Isolation**: All appointment and record SQL queries enforce `AND doctor_id = req.doctor.id`. Attempts to access another doctor's appointment ID return `403 Forbidden`.
+- **Read/Write Boundary Enforcement**: Doctors cannot modify patient identity, email, or credentials. Patients cannot write to medical records or doctor schedules.
+
+### 29.14 Role-Based Access Control (RBAC) Matrix
+```
++--------------------------------------------------+---------+--------+-------+
+| Endpoint / Resource                              | Patient | Doctor | Admin |
++--------------------------------------------------+---------+--------+-------+
+| GET /api/doctors/me                              |   403   |  200   |  403  |
+| PUT /api/doctors/me                              |   403   |  200   |  403  |
+| GET /api/doctors/me/dashboard                    |   403   |  200   |  403  |
+| GET /api/doctors/me/appointments                 |   403   |  200   |  403  |
+| GET /api/doctors/me/appointments/:id             |   403   |  200*  |  403  |
+| PUT /api/doctors/me/appointments/:id/status      |   403   |  200*  |  403  |
+| POST /api/doctors/me/appointments/:id/consultation | 403   |  201*  |  403  |
+| GET /api/doctors/me/records                      |   403   |  200   |  403  |
+| PUT /api/medical-records/:id                     |   403   |  200*  |  200  |
++--------------------------------------------------+---------+--------+-------+
+* Requires specific ownership check (doctor_id == req.doctor.id).
+```
+
+### 29.15 Appointment State Transition Rules
+- **Valid State Machine**:
+  - `Pending` -> `Confirmed`, `Cancelled`
+  - `Confirmed` -> `Completed`, `Cancelled`, `Rescheduled`
+  - `Rescheduled` -> `Completed`, `Cancelled`
+  - `Completed` -> Final state (No further transitions allowed)
+  - `Cancelled` -> Final state (No further transitions allowed; releases time slot)
+
+### 29.16 Medical Record State & Integrity Rules
+- 1:1 Relationship with `appointments`: An appointment can have AT MOST one `medical_records` row.
+- Unique `record_code` format: `MR-YYYY-XXXX`.
+- Diagnosis field mandatory.
+- Deletion prohibited via Doctor API; updates permitted only by authoring doctor.
+
+### 29.17 Database Interaction Design
+- All database queries executed via `server/config/db.js` using `pool.query()` or `connection.query()`.
+- Standardized parameterized placeholders (`?`) for all variables.
+
+### 29.18 MySQL Transaction Requirements
+- Consultation submission requires explicit transaction:
+  1. `const connection = await pool.getConnection();`
+  2. `await connection.beginTransaction();`
+  3. Validate appointment ownership & status (`FOR UPDATE` lock).
+  4. `INSERT INTO medical_records ...`
+  5. `UPDATE appointments SET status = 'Completed' WHERE id = ?`
+  6. `await connection.commit();`
+  7. `connection.release();`
+  - Catch block executes `await connection.rollback();` and releases connection.
+
+### 29.19 Concurrency & Conflict Handling
+- Row-level lock (`FOR UPDATE`) used during status transitions to prevent concurrent modification race conditions.
+- Slot release upon cancellation immediately frees slot for patient booking engine.
+
+### 29.20 Validation Strategy
+- **Request Inputs**: Validate required strings, non-empty diagnosis, valid date formats (`YYYY-MM-DD`).
+- **Consultation Validation**: Verify appointment exists, belongs to doctor, and is in `Confirmed` or `Rescheduled` status before allowing record creation.
+
+### 29.21 Security Hardening
+- **Authentication**: HttpOnly JWT cookie verification.
+- **SQL Injection**: 100% prepared parameterized queries.
+- **Data Scrubbing**: Exclude `password_hash` from all doctor and patient JSON responses.
+- **Error Masks**: Return generic error messages to client while logging detailed stack traces server-side.
+
+### 29.22 Frontend Doctor Portal Views
+- `client/doctor/index.html`: Dashboard overview with statistics grid, today's schedule feed, quick consultation action buttons.
+- `client/doctor/profile.html`: Doctor profile editor and slot/day availability grid configuration form.
+- `client/doctor/appointments.html`: Comprehensive assigned appointment roster with date/status filter tabs and patient history sidebar.
+- `client/doctor/consultation.html`: Active consultation workspace to review patient symptoms, input diagnosis, write prescriptions, set follow-up dates, and finalize medical records.
+- `client/doctor/records.html`: Historical medical record repository authored by the doctor.
+
+### 29.23 Client JavaScript Architecture (`client/js/doctor.js`)
+- `DoctorApp.init()`: Checks auth session (`role === 'doctor'`), renders navigation header.
+- `DoctorApp.loadDashboard()`: Fetches metrics and populates summary cards.
+- `DoctorApp.loadAppointments()`: Fetches appointment list, handles search/filter events, renders status badges.
+- `DoctorApp.handleConsultationSubmit()`: Captures form input, sends POST request, displays success toast, redirects to appointment roster.
+
+### 29.24 Responsive UI & Visual Tokens
+- Standard CareNova Health visual design system (`#0F4C81` primary blue, `#0D9488` teal accent, `#F8FAFC` slate background).
+- Fully responsive across 375px mobile, 768px tablet, 1024px desktop, 1440px widescreen layouts.
+
+### 29.25 Complete File Structure for Phase 3D
+```
+Major-Project/
+├── client/
+│   └── doctor/
+│       ├── index.html         # Doctor Dashboard
+│       ├── profile.html       # Doctor Profile & Schedule Management
+│       ├── appointments.html  # Doctor Appointment Roster & Filters
+│       ├── consultation.html  # Consultation & Clinical Notes Form
+│       └── records.html       # Doctor Authored Medical Records
+│   └── js/
+│       └── doctor.js          # Doctor Frontend Controller & Workstation Logic
+├── server/
+│   ├── controllers/
+│   │   └── doctorController.js # Doctor Workstation & Consultation Business Logic
+│   └── routes/
+│       └── doctorRoutes.js     # Doctor REST API Route Declarations
+```
+
+### 29.26 Postman Testing Plan
+- Test 01: Doctor Login & JWT Token Issuance (`POST /api/auth/login`)
+- Test 02: Doctor Profile GET (`GET /api/doctors/me`)
+- Test 03: Doctor Profile & Schedule PUT (`PUT /api/doctors/me`)
+- Test 04: Doctor Dashboard Metrics (`GET /api/doctors/me/dashboard`)
+- Test 05: Doctor Assigned Appointments (`GET /api/doctors/me/appointments`)
+- Test 06: Filter Appointments by Date/Status (`GET /api/doctors/me/appointments?status=Confirmed`)
+- Test 07: Appointment Status Update to Cancelled (`PUT /api/doctors/me/appointments/1/status`)
+- Test 08: Submit Consultation & Create Medical Record (`POST /api/doctors/me/appointments/1/consultation`)
+- Test 09: Doctor Authored Records Read (`GET /api/doctors/me/records`)
+- Test 10: Unauthenticated Request Rejection (`401 Unauthorized`)
+- Test 11: Patient Role Accessing Doctor Endpoint (`403 Forbidden`)
+- Test 12: Doctor A Accessing Doctor B Appointment (`403 Forbidden`)
+- Test 13: SQL Injection Prevention Assertion
+- Test 14: Invalid Appointment ID Handling (`404 Not Found`)
+
+### 29.27 Complete QA Strategy
+- **Functional & Business Logic**: Verify status transitions and consultation medical record creation.
+- **Integration**: Ensure doctor schedule updates immediately reflect on patient booking slot selector.
+- **Security & IDOR**: Validate cross-doctor and cross-role isolation across all endpoints.
+- **Regression**: Execute full Phase 3C test suite to guarantee 100% baseline stability.
+
+### 29.28 Explicit Phase 3C Regression Requirements
+The following Patient Module capabilities must remain 100% operational without disruption:
+1. Patient registration and login.
+2. Patient profile GET/PUT.
+3. Department and doctor directory browsing.
+4. Dynamic slot availability lookup.
+5. Appointment booking with double-booking prevention (HTTP 409).
+6. Self-rescheduling and self-cancellation with slot release.
+7. Patient medical record view-only access.
+
+### 29.29 Requirement-to-Feature Traceability Matrix
+| Requirement | Doctor Feature | API Endpoint | Verification Test |
+| :--- | :--- | :--- | :--- |
+| Profile & Availability | Profile & Slot Config | `PUT /api/doctors/me` | Postman Test 03 |
+| Appointment Roster | Doctor Schedule Feed | `GET /api/doctors/me/appointments` | Postman Test 05 |
+| Status Update | Cancel/Complete Appt | `PUT /api/doctors/me/appointments/:id/status` | Postman Test 07 |
+| Consultation Notes | Diagnosis & Prescription | `POST /api/doctors/me/appointments/:id/consultation` | Postman Test 08 |
+| Record Ownership | Medical Record Security | `GET /api/doctors/me/records` | IDOR QA Test 12 |
+
+### 29.30 Risks and Mitigations
+- **Risk 1: Orphaned Records on Failed Consultation**: Mitigated by wrapping medical record creation and appointment status update in an atomic MySQL transaction (`beginTransaction` / `commit` / `rollback`).
+- **Risk 2: IDOR Data Leak Between Doctors**: Mitigated by resolving doctor identity strictly from session JWT and enforcing `WHERE doctor_id = req.doctor.id` on all queries.
+
+### 29.31 Scope Exclusions
+- Real-time video/audio tele-consultation streams (demo mock workspace used).
+- Electronic prescription PDF printing / digital signature keys.
+- Lab result file attachment uploads.
+
+### 29.32 Exact Implementation Sequence for Phase 3D
+1. Create `server/controllers/doctorController.js` and implement REST methods.
+2. Create `server/routes/doctorRoutes.js` and mount on Express app.
+3. Implement `client/js/doctor.js` API client logic.
+4. Create Doctor HTML views (`index.html`, `profile.html`, `appointments.html`, `consultation.html`, `records.html`).
+5. Execute Postman API collection tests for Phase 3D.
+6. Run Phase 3C regression test suite to ensure zero breaking changes.
+
+### 29.33 Final Phase 3D Deliverable Checklist
+- [ ] `server/controllers/doctorController.js` created and verified.
+- [ ] `server/routes/doctorRoutes.js` mounted in `app.js`.
+- [ ] Doctor frontend pages created under `client/doctor/`.
+- [ ] `client/js/doctor.js` implemented.
+- [ ] All 14 Phase 3D Postman tests passing.
+- [ ] All 17 Phase 3C regression tests passing.
+- [ ] Git working tree clean.
+
+---
+
 **USER REVIEW REQUIRED:**  
 Please review this master implementation plan. Implementation will begin immediately upon your approval.
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assigned Appointments Roster — CareNova Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Header Shell -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="doctor-dashboard.html" class="nav-link">Workstation</a></li>
+          <li><a href="doctor-appointments.html" class="nav-link active">My Roster</a></li>
+          <li><a href="doctor-records.html" class="nav-link">Authored Records</a></li>
+          <li><a href="doctor-profile.html" class="nav-link">My Schedule</a></li>
+        </ul>
+      </nav>
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero-section" style="padding: 2rem 0;">
+    <div class="container">
+      <div class="phase-badge">📅 Assigned Patient Consultations</div>
+      <h1 class="hero-title" style="font-size: 1.8rem;" id="doctorHeaderTitle">Assigned Appointments Roster</h1>
+      <p class="hero-subtitle" style="font-size: 0.9rem; margin-bottom: 0;">Search, filter, manage status, and initiate clinical consultations</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container" style="margin-top: 2rem; margin-bottom: 4rem;">
+    <!-- Filter Control Bar -->
+    <div class="card" style="margin-bottom: 1.5rem; padding: 1.25rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; align-items: end;">
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Filter by Date</label>
+          <input type="date" id="filterDate" class="form-control" />
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Filter by Status</label>
+          <select id="filterStatus" class="form-control">
+            <option value="">All Statuses</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Rescheduled">Rescheduled</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.25rem;">Search Patient / Ref ID</label>
+          <input type="text" id="filterSearch" class="form-control" placeholder="Search name, phone, or Ref ID..." />
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment Roster Feed -->
+    <div id="appointmentsRosterList">
+      <p style="color: var(--text-muted);">Loading appointment roster...</p>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/doctor.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      DoctorApp.init('appointments');
+    });
+  </script>
+</body>
+</html>

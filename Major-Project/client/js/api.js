@@ -159,5 +159,55 @@ const ApiService = {
 
   async getMedicalRecordById(id) {
     return this.request(`/medical-records/${id}`, { method: 'GET' });
+  },
+
+  // --- Phase 3D Doctor Module Methods ---
+  async getDoctorProfile() {
+    return this.request('/doctors/me', { method: 'GET' });
+  },
+
+  async updateDoctorProfile(profileData) {
+    return this.request('/doctors/me', {
+      method: 'PUT',
+      body: JSON.stringify(profileData)
+    });
+  },
+
+  async getDoctorDashboard() {
+    return this.request('/doctors/me/dashboard', { method: 'GET' });
+  },
+
+  async getDoctorAppointments(queryString = '') {
+    const ep = queryString ? `/doctors/me/appointments?${queryString}` : '/doctors/me/appointments';
+    return this.request(ep, { method: 'GET' });
+  },
+
+  async getDoctorAppointmentById(id) {
+    return this.request(`/doctors/me/appointments/${id}`, { method: 'GET' });
+  },
+
+  async updateDoctorAppointmentStatus(id, statusData) {
+    return this.request(`/doctors/me/appointments/${id}/status`, {
+      method: 'PUT',
+      body: JSON.stringify(statusData)
+    });
+  },
+
+  async submitDoctorConsultation(id, consultationData) {
+    return this.request(`/doctors/me/appointments/${id}/consultation`, {
+      method: 'POST',
+      body: JSON.stringify(consultationData)
+    });
+  },
+
+  async getDoctorAuthoredRecords() {
+    return this.request('/doctors/me/records', { method: 'GET' });
+  },
+
+  async updateAuthoredRecord(id, recordData) {
+    return this.request(`/doctors/me/records/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(recordData)
+    });
   }
 };

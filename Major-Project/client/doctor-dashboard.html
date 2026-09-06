@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Workstation — CareNova Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Header & Navigation Shell -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="doctor-dashboard.html" class="nav-link active">Workstation</a></li>
+          <li><a href="doctor-appointments.html" class="nav-link">My Roster</a></li>
+          <li><a href="doctor-records.html" class="nav-link">Authored Records</a></li>
+          <li><a href="doctor-profile.html" class="nav-link">My Schedule</a></li>
+        </ul>
+      </nav>
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero-section" style="padding: 2.5rem 0;">
+    <div class="container">
+      <div class="phase-badge">👨‍⚕️ Clinical Doctor Workstation</div>
+      <h1 class="hero-title" style="font-size: 2rem;" id="doctorHeaderTitle">Doctor Workstation</h1>
+      <p class="hero-subtitle" style="font-size: 0.95rem; margin-bottom: 0;">CareNova Health Medical Provider Command Console</p>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="container" style="margin-top: 2rem; margin-bottom: 4rem;">
+    <!-- Dashboard Stats Grid -->
+    <div class="status-grid" style="margin-bottom: 2rem;">
+      <div class="status-item">
+        <label>Today's Consultations</label>
+        <span id="statTodayCount" style="font-size: 1.75rem; font-weight: 800; color: var(--primary-color);">0</span>
+      </div>
+      <div class="status-item">
+        <label>Upcoming Appointments</label>
+        <span id="statUpcomingCount" style="font-size: 1.75rem; font-weight: 800; color: var(--secondary-color);">0</span>
+      </div>
+      <div class="status-item">
+        <label>Pending Consultations</label>
+        <span id="statPendingCount" style="font-size: 1.75rem; font-weight: 800; color: var(--warning-color, #f59e0b);">0</span>
+      </div>
+      <div class="status-item">
+        <label>Completed Consultations</label>
+        <span id="statCompletedCount" style="font-size: 1.75rem; font-weight: 800; color: #10b981;">0</span>
+      </div>
+      <div class="status-item">
+        <label>Cancelled Appointments</label>
+        <span id="statCancelledCount" style="font-size: 1.75rem; font-weight: 800; color: #ef4444;">0</span>
+      </div>
+    </div>
+
+    <!-- Quick Navigation Actions -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+      <a href="doctor-appointments.html" class="btn btn-primary">📅 View Full Assigned Roster</a>
+      <a href="doctor-records.html" class="btn btn-outline">📋 View Medical Records History</a>
+      <a href="doctor-profile.html" class="btn btn-outline">⚙️ Manage Schedule & Slots</a>
+    </div>
+
+    <!-- Today's Schedule Section -->
+    <div class="status-monitor-card">
+      <h2 style="font-size: 1.25rem; color: var(--primary-color); margin-bottom: 1rem;">📅 Today's Patient Schedule Feed</h2>
+      <div id="todayScheduleFeed">
+        <p style="color: var(--text-muted);">Loading today's schedule...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/doctor.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      DoctorApp.init('dashboard');
+    });
+  </script>
+</body>
+</html>
