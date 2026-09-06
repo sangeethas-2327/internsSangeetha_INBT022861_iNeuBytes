@@ -1,0 +1,97 @@
+/* ==========================================================================
+   CareNova Health — Task 2: Responsive Breakpoints Stylesheet
+   ========================================================================== */
+
+/* 1. Tablet & Laptops (Max Width: 1024px) */
+@media (max-width: 1024px) {
+  .doctors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .history-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2. Mobile (Max Width: 767px) */
+@media (max-width: 767px) {
+  .navbar {
+    height: 70px;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: #FFFFFF;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 1.5rem;
+    gap: 1rem;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .nav-menu.is-active {
+    transform: translateX(0);
+  }
+
+  .portal-title {
+    font-size: 1.75rem;
+  }
+
+  .doctors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-doc-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .modal-doc-meta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .dept-filter-bar {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* 3. Small Mobile (Max Width: 375px) */
+@media (max-width: 375px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .portal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-dialog {
+    padding: 0;
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareNova Health - Doctor Appointment Booking System. Fictional demonstration web application for iNeuBytes Web Development Internship Task 2 by Sangeetha (INBT022861).">
+  <meta name="author" content="Sangeetha (INBT022861)">
+  <title>CareNova Health — Doctor Appointment Booking Portal | iNeuBytes Internship</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/booking.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. Header & Navigation Bar
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="#catalogView" class="brand-logo" aria-label="CareNova Health Booking Home">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+
+      <nav aria-label="Main Portal Navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#catalogView" class="nav-tab-link active" id="viewCatalogTab">Browse & Book Doctors</a></li>
+          <li><a href="#historyView" class="nav-tab-link" id="viewHistoryTab">My Appointment History</a></li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation Menu" aria-expanded="false" style="display:none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. Hero Banner
+       ========================================================================== -->
+  <section class="portal-hero">
+    <div class="container portal-hero-content">
+      <div class="demo-badge">
+        ℹ️ Fictional Demonstration Booking System — iNeuBytes Internship Task 2
+      </div>
+      <h1 class="portal-title">Doctor Appointment Booking Portal</h1>
+      <p class="portal-desc">
+        Browse qualified CareNova medical specialists, filter by clinical department, select preferred dates & time slots, and manage appointment history.
+      </p>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- ==========================================================================
+         3. VIEW 1: Doctor Catalog & Search (Default View)
+         ========================================================================== -->
+    <div id="catalogView">
+      <!-- Search & Department Filter Bar -->
+      <section class="controls-section">
+        <div class="search-filter-card">
+          <div class="search-box-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="doctorSearchInput" 
+              class="search-input" 
+              placeholder="Search doctors by name, specialty, or department (e.g., Sarah, Cardiology, Pediatrics)..."
+              aria-label="Search Doctors by Name or Specialty">
+            <button type="button" class="clear-search-btn" id="clearSearchInput" aria-label="Clear Search">✕</button>
+          </div>
+
+          <div class="dept-filter-bar" id="deptFilterContainer" aria-label="Department Filters">
+            <!-- Dynamic Department Filter Pills Rendered via app.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Doctor Listings Grid -->
+      <section class="doctors-section">
+        <div class="doctors-grid" id="doctorsContainer">
+          <!-- Dynamic Doctor Cards Rendered via app.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ==========================================================================
+         4. VIEW 2: Appointment History (Read, Update, Delete)
+         ========================================================================== -->
+    <div id="historyView" class="history-section">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main);">My Appointment History</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          View past and upcoming bookings persisted in browser LocalStorage. Reschedule or cancel appointments as needed.
+        </p>
+      </div>
+
+      <div id="appointmentHistoryContainer">
+        <!-- Dynamic Appointment Cards Rendered via app.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       5. Booking & Profile Modal (CREATE & UPDATE)
+       ========================================================================== -->
+  <div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Book Doctor Appointment</h3>
+        <button type="button" class="close-modal-btn" id="closeBookingModal" aria-label="Close Modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Doctor Details Summary (5 Mandatory Fields) -->
+        <div class="modal-doc-summary">
+          <div class="modal-doc-avatar" id="modalDocAvatar">SJ</div>
+          <div class="modal-doc-info">
+            <h4 id="modalDocName">Dr. Sarah Jenkins</h4>
+            <p id="modalDocQual">MD, FACC</p>
+            <div class="modal-doc-meta">
+              <span>🏥 <strong id="modalDocDept">Cardiology</strong></span>
+              <span>⭐ <strong id="modalDocExp">12 Years Exp</strong></span>
+              <span>💳 Fee: <strong id="modalDocFee" class="fee-highlight">₹800</strong></span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+              Available Days: <span id="modalDocSlots">Mon, Tue, Wed, Thu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Validation Error Banner -->
+        <div class="form-alert error" id="bookingFormAlertError" role="alert">
+          <span>Please complete all required fields and select an available time slot.</span>
+        </div>
+
+        <!-- Booking Form -->
+        <form id="bookingForm" novalidate>
+          <input type="hidden" id="bookingDocId" name="bookingDocId">
+          <input type="hidden" id="rescheduleId" name="rescheduleId">
+          <input type="hidden" id="selectedSlot" name="selectedSlot">
+
+          <!-- Date & Time Slot Selector -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookingDate" class="form-label">Appointment Date <span>*</span></label>
+              <input type="date" id="bookingDate" name="bookingDate" class="form-control" required>
+              <span class="error-message" id="bookingDateError">Please select a valid future appointment date.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Select Available Time Slot <span>*</span></label>
+              <div class="slot-grid" id="timeSlotsContainer">
+                <p class="slot-hint">Select a date to view available consultation slots.</p>
+              </div>
+              <span class="error-message" id="selectedSlotError">Please select an available consultation time slot.</span>
+            </div>
+          </div>
+
+          <!-- Patient Information Fields -->
+          <div class="form-group">
+            <label for="patientName" class="form-label">Patient Full Name <span>*</span></label>
+            <input type="text" id="patientName" name="patientName" class="form-control" placeholder="e.g., Sangeetha" required>
+            <span class="error-message" id="patientNameError">Please enter patient name (minimum 2 characters).</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="patientEmail" class="form-label">Email Address <span>*</span></label>
+              <input type="email" id="patientEmail" name="patientEmail" class="form-control" placeholder="sangeetha@example.com" required>
+              <span class="error-message" id="patientEmailError">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="patientPhone" class="form-label">Phone Number <span>*</span></label>
+              <input type="tel" id="patientPhone" name="patientPhone" class="form-control" placeholder="e.g., 9876543210" required>
+              <span class="error-message" id="patientPhoneError">Please enter a valid 10-digit phone number.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="patientAge" class="form-label">Patient Age</label>
+              <input type="number" id="patientAge" name="patientAge" class="form-control" min="1" max="120" value="25">
+            </div>
+
+            <div class="form-group">
+              <label for="patientGender" class="form-label">Gender</label>
+              <select id="patientGender" name="patientGender" class="form-control">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button type="button" class="btn btn-outline" id="cancelBookingModal" style="flex: 1;">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submitBookingBtn" style="flex: 2;">Confirm & Book Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6. Confirmation Receipt Modal (READ)
+       ========================================================================== -->
+  <div class="modal-overlay" id="confirmationModal" role="dialog" aria-modal="true" aria-labelledby="confirmRefId">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: var(--success-color);">✓ Appointment Confirmed (Demo)</h3>
+        <button type="button" class="close-modal-btn" id="closeConfirmationModal" aria-label="Close Confirmation">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="receipt-card">
+          <div class="receipt-ref-banner">
+            Reference ID: <span id="confirmRefId">CNH-2026-8942</span>
+          </div>
+
+          <div class="receipt-row">
+            <span>Status:</span> <strong id="confirmStatus" style="color: var(--success-color);">Confirmed</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Doctor Name:</span> <strong id="confirmDocName">Dr. Sarah Jenkins</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Department:</span> <strong id="confirmDept">Cardiology</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Consultation Fee:</span> <strong id="confirmFee">₹800</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Appointment Date:</span> <strong id="confirmDate">2026-09-10</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Time Slot:</span> <strong id="confirmTime">10:30 AM</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Patient Name:</span> <strong id="confirmPatientName">Sangeetha</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Contact Phone:</span> <strong id="confirmPatientPhone">9876543210</strong>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem;">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            This booking is saved to browser LocalStorage. You can view or reschedule it anytime under "My Appointment History".
+          </p>
+          <button type="button" class="btn btn-primary" id="confirmDoneBtn" style="width: 100%;">Done & Return to Portal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <p>&copy; 2026 CareNova Health Appointment Portal (Fictional Demo). iNeuBytes Task 2 by Sangeetha (INBT022861).</p>
+      <div class="demo-badge" style="margin: 0;">
+        Course ID: WBINB10726
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/doctors.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

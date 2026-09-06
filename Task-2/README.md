@@ -8,39 +8,51 @@
 ---
 
 ## 🎯 Objective
-Develop an interactive frontend web application allowing patients to search and filter doctors by department, view detailed doctor profiles, book appointments with dynamic date and time slot selection, view instant booking summaries, and persist appointment history using browser LocalStorage.
+Develop a responsive, interactive Doctor Appointment Booking System for **CareNova Health**. The system allows patients to browse doctor listings, search specialists by keyword, filter doctors by medical department, view detailed doctor profiles, book appointments with dynamic date and time slot selection, receive instant confirmation receipts, and manage appointment history (reschedule & cancel) with browser `LocalStorage` persistence.
 
 ---
 
 ## 🛠️ Technology Stack
-- **HTML5:** Semantic UI templates and accessibility attributes.
-- **CSS3:** Responsive layout, card designs, modal overlays, form styling, and interactive states.
-- **JavaScript (Vanilla ES6+):** Client-side application state, department filtering, keyword search, dynamic time slot management, form validation, and LocalStorage data handling.
+- **HTML5:** Semantic markup structure (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<dialog>`, `<footer>`).
+- **CSS3:** Custom responsive design system, CareNova theme tokens (`#0F4C81`, `#0D9488`), card layouts, modal dialog overlays, slot picker buttons, and breakpoint media queries.
+- **JavaScript (Vanilla ES6+):** Dynamic doctor search, department filter pills, interactive time slot generator, client-side form validation, modal state management, and LocalStorage CRUD data handling.
+- **Browser LocalStorage:** Storage key `carenova_appointments` storing structured JSON appointment records.
 
 ---
 
 ## 📁 Directory Structure
 ```
 Task-2/
-├── README.md           # Task 2 documentation
-├── index.html          # Booking portal main interface
+├── README.md               # Task 2 documentation
+├── index.html              # Main application single-page interface
 ├── css/
-│   ├── style.css       # Core layout and component styling
-│   └── booking.css     # Booking form, modal, and appointment history styles
+│   ├── style.css           # Core styles, cards, search & filter bars
+│   ├── booking.css         # Booking modal, time slot picker, confirmation receipt
+│   └── responsive.css      # Media queries for 375px, 768px, 1024px, 1440px
 ├── js/
-│   ├── doctors.js      # Fictional doctor database & dataset
-│   ├── app.js          # Main app initialization, search, and filtering
-│   ├── booking.js      # Booking modal workflow and slot selection
-│   └── storage.js      # LocalStorage helper functions for appointment history
+│   ├── doctors.js          # Doctor dataset (6 specialists) & metadata query helpers
+│   ├── storage.js          # LocalStorage CRUD helper methods & conflict checker
+│   ├── booking.js          # Modal workflow, time slot generator, & form validator
+│   └── app.js              # Main application controller, search listener, & history view
 └── assets/
-    └── images/         # Doctor photos and department icons
+    └── images/
+        └── logo.svg        # CareNova Health Booking SVG logo
 ```
 
 ---
 
-## 🔁 User Workflow
-1. **Browse / Search Doctors:** Filter doctors by department (Cardiology, Neurology, Pediatrics, Orthopedics, General Medicine) or search by keyword.
-2. **View Doctor Profile:** Inspect experience, qualifications, consultation fees, and available days.
-3. **Book Appointment:** Click "Book Appointment", fill in patient details, select date and available time slot.
-4. **Instant Confirmation:** View appointment summary modal with generated reference ID.
-5. **Appointment History:** Review past and upcoming bookings stored in LocalStorage.
+## 🔄 User Workflow
+1. **Browse Doctors:** View doctor listing cards featuring 5 mandatory fields: Doctor Name, Department, Experience, Available Slots, and Consultation Fee.
+2. **Search & Filter:** Search by doctor name or specialty, or click department filter pills (`Cardiology`, `Neurology`, `Pediatrics`, `Orthopedics`, `Dermatology`, `General Medicine`).
+3. **View Profile & Book:** Click "Book Appointment" to open the interactive booking modal.
+4. **Select Date & Time Slot:** Select an appointment date (min = today) and pick an available time slot. Already-booked slots on that date are disabled.
+5. **Client-Side Validation:** Enter Patient Name, Email, Phone Number, Age, and Gender. JavaScript validates format and required fields.
+6. **Instant Confirmation Receipt (CREATE / READ):** View booking summary modal with reference ID (e.g. `CNH-2026-8942`).
+7. **Appointment History (READ, UPDATE, DELETE):**
+   - **Reschedule (UPDATE):** Select a new date and time slot. Updates appointment status to `Rescheduled` while preserving the same reference ID. Self-conflict is automatically excluded.
+   - **Cancel (DELETE):** Changes status to `Cancelled` and releases reserved time slot for re-booking.
+
+---
+
+## 🚦 How to Run
+Open `Task-2/index.html` directly in any modern web browser or serve via any static HTTP server.

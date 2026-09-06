@@ -53,28 +53,28 @@
 ---
 
 ## 📅 Phase 2: Task 2 — Doctor Appointment Booking System
-- [ ] Home Page / Portal interface
-- [ ] Doctor Listings view
-- [ ] Doctor Search functionality (by name / keyword)
-- [ ] Department Filter dropdown/buttons
-- [ ] Doctor Profile modal / detailed view (Name, Department, Experience, Time slots, Consultation Fee)
-- [ ] Appointment Booking Form:
-  - [ ] Patient details entry
-  - [ ] Selected doctor auto-fill / confirmation
-  - [ ] Date picker selection
-  - [ ] Available time slot selector
-  - [ ] Booking confirmation state
-- [ ] Appointment Summary dynamic display
-- [ ] Appointment History (Frontend view with LocalStorage persistence)
-- [ ] JavaScript Features:
-  - [ ] Search and filter logic
-  - [ ] Dynamic time slot availability update
-  - [ ] Appointment state management & LocalStorage persistence
-  - [ ] Form validation
-- [ ] Task 2 Verification & Testing:
-  - [ ] End-to-end booking workflow verification
-  - [ ] Filter & search accuracy verification
-  - [ ] LocalStorage persistence check
+- [x] Home Page / Portal interface
+- [x] Doctor Listings view
+- [x] Doctor Search functionality (by name / keyword)
+- [x] Department Filter dropdown/buttons
+- [x] Doctor Profile modal / detailed view (Name, Department, Experience, Time slots, Consultation Fee)
+- [x] Appointment Booking Form:
+  - [x] Patient details entry
+  - [x] Selected doctor auto-fill / confirmation
+  - [x] Date picker selection
+  - [x] Available time slot selector
+  - [x] Booking confirmation state
+- [x] Appointment Summary dynamic display
+- [x] Appointment History (Frontend view with LocalStorage persistence)
+- [x] JavaScript Features:
+  - [x] Search and filter logic
+  - [x] Dynamic time slot availability update
+  - [x] Appointment state management & LocalStorage persistence
+  - [x] Form validation
+- [x] Task 2 Verification & Testing:
+  - [x] End-to-end booking workflow verification
+  - [x] Filter & search accuracy verification
+  - [x] LocalStorage persistence check
 
 ---
 
