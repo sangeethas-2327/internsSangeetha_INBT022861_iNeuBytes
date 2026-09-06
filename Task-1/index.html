@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareNova Health - Healthcare & Clinic Landing Page. Fictional demonstration web application for iNeuBytes Web Development Internship Task 1 by Sangeetha (INBT022861).">
+  <meta name="author" content="Sangeetha (INBT022861)">
+  <title>CareNova Health — Clinic Landing Page | iNeuBytes Internship</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. Header & Responsive Navigation Bar
+       ========================================================================== -->
+  <header class="site-header" id="home">
+    <div class="container navbar">
+      <a href="#home" class="brand-logo" aria-label="CareNova Health Home">
+        <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About Clinic</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#why-us" class="nav-link">Why Choose Us</a></li>
+          <li><a href="#doctors" class="nav-link">Doctor Highlights</a></li>
+          <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#enquiry" class="btn btn-primary">Book Appointment</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <svg class="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         2. Hero Section
+         ========================================================================== -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            Fictional Demonstration Project
+          </div>
+          
+          <h1 class="hero-title">
+            Compassionate Care, <span>Advanced Medicine.</span>
+          </h1>
+
+          <p class="hero-description">
+            CareNova Health is a modern fictional clinic demonstration developed for the iNeuBytes Web Development Internship. Providing specialized healthcare, preventive wellness, and patient-centered services.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#enquiry" class="btn btn-secondary">Submit Enquiry</a>
+            <a href="#services" class="btn btn-outline">Explore Services</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span class="stat-number">10+</span>
+              <span class="stat-label">Specializations (Demo)</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">25+</span>
+              <span class="stat-label">Doctors (Demo Data)</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Enquiry Support</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+          <div class="hero-card-preview">
+            <div class="hero-card-header">
+              <div class="hero-card-icon">🏥</div>
+              <div>
+                <h2 class="hero-card-title">CareNova Health Center</h2>
+                <p class="hero-card-subtitle">Virtual Internship Demonstration</p>
+              </div>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+              Experience a streamlined healthcare portal designed with responsive layouts, accessible forms, and clean UI components.
+            </p>
+            <div class="demo-badge">
+              ℹ️ Demo Note: Fictional clinic data for educational evaluation.
+            </div>
+            <div class="hero-badge-floating">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>100% Client-Side Responsive UI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         3. About the Clinic
+         ========================================================================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-content-box">
+            <span class="section-subtitle">About CareNova Health</span>
+            <h2 class="section-title">Dedicated to Excellence in Patient Care</h2>
+            <p class="section-description">
+              CareNova Health represents a modern fictional medical facility built to showcase best practices in web development, semantic HTML5, CSS responsive architecture, and JavaScript validation.
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+              Our fictional model focuses on holistic healthcare delivery—combining expert outpatient consultations, diagnostic imaging support, and round-the-clock emergency guidance under one integrated brand.
+            </p>
+
+            <div class="about-highlights">
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div class="highlight-text">
+                  <h4>Patient-Centered Care</h4>
+                  <p>Compassionate clinical consultation model.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div class="highlight-text">
+                  <h4>Modern Diagnostics</h4>
+                  <p>Fictional state-of-the-art facility features.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div class="highlight-text">
+                  <h4>Specialized Doctors</h4>
+                  <p>Multi-department specialist coverage.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div class="highlight-text">
+                  <h4>Quick Enquiry</h4>
+                  <p>Validated online appointment request form.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="demo-badge">
+              📌 Internship Project Scope: Task 1 Healthcare Landing Page
+            </div>
+          </div>
+
+          <div class="about-visual-box" style="background: var(--bg-alt); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center;">
+            <div style="font-size: 3.5rem; margin-bottom: 1rem;">🩺</div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem;">CareNova Health Philosophy</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">
+              "Empowering individuals through accessible health insights, prompt clinical communication, and trustworthy medical care."
+            </p>
+            <div style="background: var(--accent-blue-light); color: var(--primary-color); padding: 1rem; border-radius: var(--radius-md); font-weight: 600; font-size: 0.85rem;">
+              Demonstration Model for iNeuBytes Task 1 Evaluation
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. Medical Services
+         ========================================================================== -->
+    <section class="section section-alt" id="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Our Specializations</span>
+          <h2 class="section-title">Comprehensive Medical Services</h2>
+          <p class="section-description">
+            Explore our fictional clinical departments designed to address diverse health needs with medical precision.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Service 1 -->
+          <article class="service-card">
+            <div class="service-icon">🫀</div>
+            <h3 class="service-title">Cardiology</h3>
+            <p class="service-desc">
+              Comprehensive cardiovascular health assessments, ECG screening, heart disease prevention, and hypertension management guidance.
+            </p>
+            <a href="#enquiry" class="service-link">Inquire Cardiology &rarr;</a>
+          </article>
+
+          <!-- Service 2 -->
+          <article class="service-card">
+            <div class="service-icon">🧠</div>
+            <h3 class="service-title">Neurology</h3>
+            <p class="service-desc">
+              Expert evaluation for neurological disorders, headache management, nerve health, and comprehensive neurological wellness.
+            </p>
+            <a href="#enquiry" class="service-link">Inquire Neurology &rarr;</a>
+          </article>
+
+          <!-- Service 3 -->
+          <article class="service-card">
+            <div class="service-icon">👶</div>
+            <h3 class="service-title">Pediatrics</h3>
+            <p class="service-desc">
+              Dedicated child healthcare services, growth monitoring, pediatric vaccinations, and adolescent wellness programs.
+            </p>
+            <a href="#enquiry" class="service-link">Inquire Pediatrics &rarr;</a>
+          </article>
+
+          <!-- Service 4 -->
+          <article class="service-card">
+            <div class="service-icon">🦴</div>
+            <h3 class="service-title">Orthopedics</h3>
+            <p class="service-desc">
+              Specialized care for bone, joint, and muscular conditions, sports injury rehabilitation, and joint health consultation.
+            </p>
+            <a href="#enquiry" class="service-link">Inquire Orthopedics &rarr;</a>
+          </article>
+
+          <!-- Service 5 -->
+          <article class="service-card">
+            <div class="service-icon">🧴</div>
+            <h3 class="service-title">Dermatology</h3>
+            <p class="service-desc">
+              Advanced skin consultations, dermatological disease treatment, allergy testing, and aesthetic skin care advice.
+            </p>
+            <a href="#enquiry" class="service-link">Inquire Dermatology &rarr;</a>
+          </article>
+
+          <!-- Service 6 -->
+          <article class="service-card">
+            <div class="service-icon">🚨</div>
+            <h3 class="service-title">Emergency Care</h3>
+            <p class="service-desc">
+              Round-the-clock urgent medical evaluation, trauma stabilization guidance, and prompt clinical emergency response.
+            </p>
+            <a href="#enquiry" class="service-link">Inquire Emergency Care &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. Why Choose Us
+         ========================================================================== -->
+    <section class="section" id="why-us">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Why Choose CareNova</span>
+          <h2 class="section-title">Prioritizing Your Health & Comfort</h2>
+          <p class="section-description">
+            Key demonstration features that make CareNova Health a trusted choice for fictional healthcare simulation.
+          </p>
+        </div>
+
+        <div class="why-us-grid">
+          <div class="why-card">
+            <div class="why-icon">⏰</div>
+            <h3 class="why-title">24/7 Assistance</h3>
+            <p class="why-desc">Continuous online enquiry submission and helpline support.</p>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">👨‍⚕️</div>
+            <h3 class="why-title">Expert Team</h3>
+            <p class="why-desc">Qualified fictional specialists across major clinical fields.</p>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">🔬</div>
+            <h3 class="why-title">Modern Diagnostics</h3>
+            <p class="why-desc">Advanced laboratory and digital imaging infrastructure model.</p>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">📋</div>
+            <h3 class="why-title">Seamless Enquiry</h3>
+            <p class="why-desc">Fast, validated client-side appointment request portal.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. Doctor Highlights
+         ========================================================================== -->
+    <section class="section section-alt" id="doctors">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Medical Specialists</span>
+          <h2 class="section-title">Fictional Doctor Highlights</h2>
+          <p class="section-description">
+            Meet our fictional demonstration medical team representing key departments at CareNova Health.
+          </p>
+        </div>
+
+        <div class="doctors-grid">
+          <!-- Doctor 1 -->
+          <article class="doctor-card">
+            <div class="doctor-avatar-box">
+              <div class="doctor-avatar-icon">SJ</div>
+              <span class="doctor-dept-badge">Cardiology</span>
+            </div>
+            <div class="doctor-info">
+              <h3 class="doctor-name">Dr. Sarah Jenkins</h3>
+              <span class="doctor-qual">MD, FACC — Senior Cardiologist</span>
+              <ul class="doctor-details-list">
+                <li><strong>Experience:</strong> 12+ Years (Demo)</li>
+                <li><strong>Consultation:</strong> Mon - Thu</li>
+                <li><strong>Focus:</strong> Preventive Heart Care</li>
+              </ul>
+              <a href="#enquiry" class="btn btn-outline" style="width: 100%;">Enquire Consult</a>
+            </div>
+          </article>
+
+          <!-- Doctor 2 -->
+          <article class="doctor-card">
+            <div class="doctor-avatar-box">
+              <div class="doctor-avatar-icon">MV</div>
+              <span class="doctor-dept-badge">Neurology</span>
+            </div>
+            <div class="doctor-info">
+              <h3 class="doctor-name">Dr. Marcus Vance</h3>
+              <span class="doctor-qual">DM, Neuro — Neurologist</span>
+              <ul class="doctor-details-list">
+                <li><strong>Experience:</strong> 10+ Years (Demo)</li>
+                <li><strong>Consultation:</strong> Tue - Fri</li>
+                <li><strong>Focus:</strong> Neuro Diagnostics</li>
+              </ul>
+              <a href="#enquiry" class="btn btn-outline" style="width: 100%;">Enquire Consult</a>
+            </div>
+          </article>
+
+          <!-- Doctor 3 -->
+          <article class="doctor-card">
+            <div class="doctor-avatar-box">
+              <div class="doctor-avatar-icon">ER</div>
+              <span class="doctor-dept-badge">Pediatrics</span>
+            </div>
+            <div class="doctor-info">
+              <h3 class="doctor-name">Dr. Elena Rostova</h3>
+              <span class="doctor-qual">MD, DCH — Pediatric Specialist</span>
+              <ul class="doctor-details-list">
+                <li><strong>Experience:</strong> 8+ Years (Demo)</li>
+                <li><strong>Consultation:</strong> Mon - Sat</li>
+                <li><strong>Focus:</strong> Child Growth & Care</li>
+              </ul>
+              <a href="#enquiry" class="btn btn-outline" style="width: 100%;">Enquire Consult</a>
+            </div>
+          </article>
+
+          <!-- Doctor 4 -->
+          <article class="doctor-card">
+            <div class="doctor-avatar-box">
+              <div class="doctor-avatar-icon">DC</div>
+              <span class="doctor-dept-badge">Orthopedics</span>
+            </div>
+            <div class="doctor-info">
+              <h3 class="doctor-name">Dr. David Chen</h3>
+              <span class="doctor-qual">MS, Ortho — Joint Specialist</span>
+              <ul class="doctor-details-list">
+                <li><strong>Experience:</strong> 11+ Years (Demo)</li>
+                <li><strong>Consultation:</strong> Wed - Sat</li>
+                <li><strong>Focus:</strong> Joint & Bone Care</li>
+              </ul>
+              <a href="#enquiry" class="btn btn-outline" style="width: 100%;">Enquire Consult</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. Patient Testimonials
+         ========================================================================== -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Feedback & Reviews</span>
+          <h2 class="section-title">Fictional Demonstration Testimonials</h2>
+          <p class="section-description">
+            Sample patient review cards demonstrating feedback UI design and layout structure.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Review 1 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">
+              "The online enquiry process at CareNova Health was seamless. The staff responded promptly and guided me through the entire department consult."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">RM</div>
+              <div class="author-info">
+                <h5>Robert Miller</h5>
+                <span>Cardiology Patient (Fictional Review)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">
+              "CareNova Health provides clean navigation and accurate service information. Dr. Rostova was extremely attentive during our pediatric consultation."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">AS</div>
+              <div class="author-info">
+                <h5>Anita Sharma</h5>
+                <span>Pediatrics Parent (Fictional Review)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">
+              "Great user experience! The responsive design allowed me to fill out the enquiry form easily on my smartphone without any visual glitches."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">JT</div>
+              <div class="author-info">
+                <h5>Jason Taylor</h5>
+                <span>General Wellness (Fictional Review)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         8. Contact & Appointment Enquiry Form
+         ========================================================================== -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Get In Touch</span>
+          <h2 class="section-title">Contact & Appointment Enquiry</h2>
+          <p class="section-description">
+            Have a question or wish to request an appointment consultation? Submit your details below.
+          </p>
+        </div>
+
+        <div class="contact-grid" id="enquiry">
+          <!-- Contact Details Card -->
+          <div class="contact-info-box">
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.5rem;">
+              CareNova Health Center
+            </h3>
+
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-details">
+                <h4>Demonstration Clinic Location</h4>
+                <p>123 Health Avenue, Innovation Park<br>Tech District, State - 560001 (Fictional)</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-details">
+                <h4>Phone Helpline (Demo)</h4>
+                <p>+91 1800-000-CARE (Toll-Free)<br>+91 80-2345-6789 (Enquiry Desk)</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-details">
+                <h4>Email Enquiry</h4>
+                <p>enquiry@carenova-health-demo.com<br>support@carenova-health-demo.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">🕒</div>
+              <div class="contact-details">
+                <h4>Working Hours</h4>
+                <p>Mon - Sat: 8:00 AM – 8:00 PM<br>Emergency Care: 24 Hours Active</p>
+              </div>
+            </div>
+
+            <div class="demo-badge" style="margin-top: 1rem;">
+              ℹ️ Demo Note: Fictional contact information for internship evaluation.
+            </div>
+          </div>
+
+          <!-- Appointment Enquiry Form -->
+          <div class="enquiry-form-card">
+            <div class="form-header">
+              <h3>Appointment Enquiry Form</h3>
+              <p>Fill out the required fields below. JavaScript client-side validation is active.</p>
+            </div>
+
+            <!-- Success Alert Banner -->
+            <div class="form-alert success" id="formAlertSuccess" role="alert" aria-live="polite"></div>
+
+            <!-- Error Alert Banner -->
+            <div class="form-alert error" id="formAlertError" role="alert" aria-live="assertive">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <span>Please correct the errors in the highlighted fields below before submitting.</span>
+            </div>
+
+            <form id="enquiryForm" novalidate>
+              <div class="form-group">
+                <label for="patientName" class="form-label">Full Name <span>*</span></label>
+                <input type="text" id="patientName" name="patientName" class="form-control" placeholder="e.g., John Doe" required>
+                <span class="error-message" id="patientNameError">Please enter your full name (minimum 2 characters).</span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="patientEmail" class="form-label">Email Address <span>*</span></label>
+                  <input type="email" id="patientEmail" name="patientEmail" class="form-control" placeholder="john@example.com" required>
+                  <span class="error-message" id="patientEmailError">Please enter a valid email address.</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="patientPhone" class="form-label">Phone Number <span>*</span></label>
+                  <input type="tel" id="patientPhone" name="patientPhone" class="form-control" placeholder="e.g., 9876543210" required>
+                  <span class="error-message" id="patientPhoneError">Please enter a valid 10-digit phone number.</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="preferredDept" class="form-label">Preferred Department <span>*</span></label>
+                <select id="preferredDept" name="preferredDept" class="form-control" required>
+                  <option value="">-- Select Medical Department --</option>
+                  <option value="cardiology">Cardiology</option>
+                  <option value="neurology">Neurology</option>
+                  <option value="pediatrics">Pediatrics</option>
+                  <option value="orthopedics">Orthopedics</option>
+                  <option value="dermatology">Dermatology</option>
+                  <option value="emergency">Emergency Care</option>
+                  <option value="general">General Medicine</option>
+                </select>
+                <span class="error-message" id="preferredDeptError">Please select a preferred medical department.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="enquiryMessage" class="form-label">Enquiry Message <span>*</span></label>
+                <textarea id="enquiryMessage" name="enquiryMessage" class="form-control" placeholder="Describe your health query or preferred consultation schedule..." required></textarea>
+                <span class="error-message" id="enquiryMessageError">Please enter an enquiry message (minimum 10 characters).</span>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; min-height: 48px;">
+                Submit Enquiry Form
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- ==========================================================================
+             9. Google Maps Integration
+             ========================================================================== -->
+        <div class="maps-section">
+          <div class="section-header" style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.3rem; font-weight: 700; color: var(--text-main);">Demonstration Location Map</h3>
+          </div>
+          <div class="map-container">
+            <div class="map-overlay-badge">
+              📍 CareNova Health Demo Clinic Location
+            </div>
+            <iframe 
+              title="CareNova Health Demonstration Location Map"
+              src="https://maps.google.com/maps?q=12.9716,77.5946&z=14&output=embed" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       10. Footer Section
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="brand-logo">
+            <img src="assets/images/logo.svg" alt="CareNova Health Logo" width="220" height="55">
+          </a>
+          <p>
+            CareNova Health is a fictional clinic landing page developed for formal evaluation in the iNeuBytes Web Development Virtual Internship.
+          </p>
+          <div class="demo-badge">
+            Course ID: WBINB10726 | Reg: INBT022861
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Clinic</a></li>
+            <li><a href="#services">Medical Services</a></li>
+            <li><a href="#why-us">Why Choose Us</a></li>
+            <li><a href="#doctors">Doctor Highlights</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Departments</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Cardiology</a></li>
+            <li><a href="#services">Neurology</a></li>
+            <li><a href="#services">Pediatrics</a></li>
+            <li><a href="#services">Orthopedics</a></li>
+            <li><a href="#services">Dermatology</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Academic Disclaimer</h4>
+          <div class="footer-disclaimer-box">
+            This web application is produced solely as a virtual internship submission for iNeuBytes Technology & Services Private Limited. All doctor names, reviews, schedules, and metrics are simulated demonstration content.
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CareNova Health (Fictional Demo). Developed by Sangeetha (INBT022861) for iNeuBytes.</p>
+        <button id="backToTop" class="back-to-top" aria-label="Back to Top of Page">↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
