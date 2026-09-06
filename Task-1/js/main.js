@@ -245,10 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTopBtn.style.display = 'flex';
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('is-visible');
       } else {
-        backToTopBtn.style.display = 'none';
+        backToTopBtn.classList.remove('is-visible');
       }
     });
 
