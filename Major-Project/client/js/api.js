@@ -209,5 +209,120 @@ const ApiService = {
       method: 'PUT',
       body: JSON.stringify(recordData)
     });
+  },
+
+  // --- Phase 3E Admin Module Methods ---
+  async getAdminDashboard() {
+    return this.request('/admin/dashboard-stats', { method: 'GET' });
+  },
+
+  async getAdminDoctors(queryString = '') {
+    const ep = queryString ? `/admin/doctors?${queryString}` : '/admin/doctors';
+    return this.request(ep, { method: 'GET' });
+  },
+
+  async onboardDoctor(doctorData) {
+    return this.request('/admin/doctors', {
+      method: 'POST',
+      body: JSON.stringify(doctorData)
+    });
+  },
+
+  async getAdminDoctorById(id) {
+    return this.request(`/admin/doctors/${id}`, { method: 'GET' });
+  },
+
+  async updateAdminDoctor(id, doctorData) {
+    return this.request(`/admin/doctors/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(doctorData)
+    });
+  },
+
+  async toggleDoctorStatus(id, statusData) {
+    return this.request(`/admin/doctors/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify(statusData)
+    });
+  },
+
+  async getAdminPatients(queryString = '') {
+    const ep = queryString ? `/admin/patients?${queryString}` : '/admin/patients';
+    return this.request(ep, { method: 'GET' });
+  },
+
+  async getAdminPatientById(id) {
+    return this.request(`/admin/patients/${id}`, { method: 'GET' });
+  },
+
+  async updateAdminPatient(id, patientData) {
+    return this.request(`/admin/patients/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(patientData)
+    });
+  },
+
+  async togglePatientStatus(id, statusData) {
+    return this.request(`/admin/patients/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify(statusData)
+    });
+  },
+
+  async getAdminDepartments() {
+    return this.request('/admin/departments', { method: 'GET' });
+  },
+
+  async createDepartment(deptData) {
+    return this.request('/admin/departments', {
+      method: 'POST',
+      body: JSON.stringify(deptData)
+    });
+  },
+
+  async updateDepartment(id, deptData) {
+    return this.request(`/admin/departments/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(deptData)
+    });
+  },
+
+  async deleteDepartment(id) {
+    return this.request(`/admin/departments/${id}`, {
+      method: 'DELETE'
+    });
+  },
+
+  async getAdminAppointments(queryString = '') {
+    const ep = queryString ? `/admin/appointments?${queryString}` : '/admin/appointments';
+    return this.request(ep, { method: 'GET' });
+  },
+
+  async getAdminAppointmentById(id) {
+    return this.request(`/admin/appointments/${id}`, { method: 'GET' });
+  },
+
+  async overrideAppointmentStatus(id, statusData) {
+    return this.request(`/admin/appointments/${id}/status`, {
+      method: 'PATCH',
+      body: JSON.stringify(statusData)
+    });
+  },
+
+  async adminRescheduleAppointment(id, rescheduleData) {
+    return this.request(`/admin/appointments/${id}/reschedule`, {
+      method: 'PUT',
+      body: JSON.stringify(rescheduleData)
+    });
+  },
+
+  async adminCancelAppointment(id) {
+    return this.request(`/admin/appointments/${id}/cancel`, {
+      method: 'DELETE'
+    });
+  },
+
+  async getAdminReports() {
+    return this.request('/admin/reports/summary', { method: 'GET' });
   }
 };

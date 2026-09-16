@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Department Management — CareNova Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- Header Shell -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="../index.html" class="brand-logo">
+        <img src="../assets/images/logo.svg" alt="CareNova Health Logo" width="240" height="60">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="index.html" class="nav-link">Dashboard</a></li>
+          <li><a href="doctors.html" class="nav-link">Doctors</a></li>
+          <li><a href="patients.html" class="nav-link">Patients</a></li>
+          <li><a href="departments.html" class="nav-link active">Departments</a></li>
+          <li><a href="appointments.html" class="nav-link">Appointments</a></li>
+        </ul>
+      </nav>
+      <div id="navUserContainer"></div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero-section" style="padding: 2rem 0;">
+    <div class="container">
+      <h1 class="hero-title" style="font-size: 1.8rem;">🏥 Clinical Department CRUD Console</h1>
+      <p class="hero-subtitle" style="font-size: 0.95rem; margin-bottom: 0;">Create, edit, and maintain clinical department taxonomies with safety guards.</p>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="container" style="margin-top: 2rem; margin-bottom: 4rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      
+      <!-- Create Department Form Card -->
+      <div class="card" style="background: #fff; padding: 1.5rem; height: fit-content;">
+        <h2 style="font-size: 1.25rem; color: var(--primary-color); margin-bottom: 1rem;">➕ Create New Department</h2>
+        <div id="deptAlert" class="form-alert" style="display: none; margin-bottom: 1rem;"></div>
+
+        <form id="createDepartmentForm">
+          <div class="form-group">
+            <label>Department Name *</label>
+            <input type="text" id="deptName" required placeholder="e.g. Oncology" />
+          </div>
+
+          <div class="form-group">
+            <label>Unique Code * (e.g. ONCO)</label>
+            <input type="text" id="deptCode" required placeholder="ONCO" style="text-transform: uppercase;" />
+          </div>
+
+          <div class="form-group">
+            <label>Icon Identifier</label>
+            <input type="text" id="deptIcon" value="hospital" placeholder="hospital, heart, brain..." />
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="deptDescription" rows="3" placeholder="Brief clinical scope and specialty description..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Create Department</button>
+        </form>
+      </div>
+
+      <!-- Department List Card -->
+      <div>
+        <h2 style="font-size: 1.25rem; color: var(--primary-color); margin-bottom: 1rem;">📋 Active Clinical Departments</h2>
+        <div id="departmentsCrudList">
+          <p style="color: var(--text-muted);">Loading departments...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      AdminApp.init('departments');
+    });
+  </script>
+</body>
+</html>

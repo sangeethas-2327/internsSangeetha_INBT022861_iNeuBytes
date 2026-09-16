@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "CareNova Health API - Full Master Collection (Phase 3D)",
-    "description": "Postman API test suite for CareNova Health Healthcare Management System — Phase 3D Doctor Module, Authentication, RBAC, and System Endpoints.",
+    "name": "CareNova Health API - Full Master Collection (Phase 3E Admin)",
+    "description": "Postman API test suite for CareNova Health Healthcare Management System — Phase 3E Admin Module, Doctor Module, Patient Module, Authentication, RBAC, and System Endpoints.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -258,94 +258,7 @@
           }
         },
         {
-          "name": "05_Filter Appointments by Status (/api/doctors/me/appointments?status=Confirmed)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/appointments?status=Confirmed",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "appointments"],
-              "query": [
-                {
-                  "key": "status",
-                  "value": "Confirmed"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "06_Filter Appointments by Date (/api/doctors/me/appointments?date=2026-09-15)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/appointments?date=2026-09-15",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "appointments"],
-              "query": [
-                {
-                  "key": "date",
-                  "value": "2026-09-15"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "07_Search Appointments (/api/doctors/me/appointments?search=Sangeetha)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/appointments?search=Sangeetha",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "appointments"],
-              "query": [
-                {
-                  "key": "search",
-                  "value": "Sangeetha"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "08_Get Single Appointment Detail (/api/doctors/me/appointments/1)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/appointments/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "appointments", "1"]
-            }
-          }
-        },
-        {
-          "name": "09_Update Appointment Status (/api/doctors/me/appointments/1/status)",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"Cancelled\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/appointments/1/status",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "appointments", "1", "status"]
-            }
-          }
-        },
-        {
-          "name": "10_Submit Consultation & Record Medical Record (/api/doctors/me/appointments/1/consultation)",
+          "name": "05_Submit Consultation & Record Medical Record (/api/doctors/me/appointments/1/consultation)",
           "request": {
             "method": "POST",
             "header": [
@@ -364,21 +277,80 @@
               "path": ["api", "doctors", "me", "appointments", "1", "consultation"]
             }
           }
-        },
+        }
+      ]
+    },
+    {
+      "name": "05_Admin_Module",
+      "item": [
         {
-          "name": "11_Get Authored Medical Records (/api/doctors/me/records)",
+          "name": "01_Get Admin Dashboard Stats (/api/admin/dashboard-stats)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/records",
+              "raw": "{{baseUrl}}/api/admin/dashboard-stats",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "records"]
+              "path": ["api", "admin", "dashboard-stats"]
             }
           }
         },
         {
-          "name": "12_Update Authored Medical Record (/api/doctors/me/records/1)",
+          "name": "02_Onboard New Doctor (/api/admin/doctors)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"onboard.doc@carenova.health\",\n  \"password\": \"demo123\",\n  \"firstName\": \"Vikram\",\n  \"lastName\": \"Sethi\",\n  \"phone\": \"+91 98765 99999\",\n  \"departmentId\": 1,\n  \"qualification\": \"MD, DM (Cardiology)\",\n  \"experienceYears\": 9,\n  \"consultationFee\": 750,\n  \"bio\": \"Consultant Cardiologist joining CareNova Health.\",\n  \"availableDays\": \"Mon,Tue,Wed,Thu,Fri\",\n  \"availableSlots\": [\"09:00 AM\", \"10:30 AM\", \"02:00 PM\", \"04:00 PM\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/doctors",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "03_Onboard Doctor Duplicate Email Check (/api/admin/doctors)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sarah.jenkins@carenova.health\",\n  \"password\": \"demo123\",\n  \"firstName\": \"Sarah\",\n  \"lastName\": \"Jenkins\",\n  \"phone\": \"+91 98765 11101\",\n  \"departmentId\": 1,\n  \"qualification\": \"MD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/doctors",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "04_List All Doctors (/api/admin/doctors)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/doctors",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "05_Update Doctor Details (/api/admin/doctors/1)",
           "request": {
             "method": "PUT",
             "header": [
@@ -389,78 +361,225 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"diagnosis\": \"Updated Diagnosis: Normal sinus rhythm with mild lipid elevation\",\n  \"prescription\": \"Tab Atorvastatin 10mg OD x 30 days\"\n}"
+              "raw": "{\n  \"consultationFee\": 850,\n  \"experienceYears\": 13\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/records/1",
+              "raw": "{{baseUrl}}/api/admin/doctors/1",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "records", "1"]
+              "path": ["api", "admin", "doctors", "1"]
             }
           }
         },
         {
-          "name": "13_Public List Doctors (/api/doctors)",
+          "name": "06_Toggle Doctor Active Status (/api/admin/doctors/1/status)",
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": true\n}"
+            },
             "url": {
-              "raw": "{{baseUrl}}/api/doctors",
+              "raw": "{{baseUrl}}/api/admin/doctors/1/status",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors"]
+              "path": ["api", "admin", "doctors", "1", "status"]
             }
           }
         },
         {
-          "name": "14_Public Get Doctor By ID (/api/doctors/1)",
+          "name": "07_List All Patients (/api/admin/patients)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/doctors/1",
+              "raw": "{{baseUrl}}/api/admin/patients",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "1"]
+              "path": ["api", "admin", "patients"]
             }
           }
         },
         {
-          "name": "15_Public Get Available Slots (/api/doctors/1/available-slots?date=2026-09-15)",
+          "name": "08_Toggle Patient Active Status (/api/admin/patients/1/status)",
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": true\n}"
+            },
             "url": {
-              "raw": "{{baseUrl}}/api/doctors/1/available-slots?date=2026-09-15",
+              "raw": "{{baseUrl}}/api/admin/patients/1/status",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "1", "available-slots"],
-              "query": [
-                {
-                  "key": "date",
-                  "value": "2026-09-15"
-                }
-              ]
+              "path": ["api", "admin", "patients", "1", "status"]
             }
           }
         },
         {
-          "name": "16_IDOR Protection Test (Doctor A Access Doctor B Appt)",
+          "name": "09_List All Departments (/api/admin/departments)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/doctors/me/appointments/2",
+              "raw": "{{baseUrl}}/api/admin/departments",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me", "appointments", "2"]
+              "path": ["api", "admin", "departments"]
             }
           }
         },
         {
-          "name": "17_RBAC Access Denial Test (Patient Access Doctor Workstation)",
+          "name": "10_Create Department (/api/admin/departments)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Urology\",\n  \"code\": \"UROL\",\n  \"description\": \"Comprehensive urological care and treatment.\",\n  \"icon\": \"hospital\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/departments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "departments"]
+            }
+          }
+        },
+        {
+          "name": "11_Update Department (/api/admin/departments/1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated Cardiology specialty description.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/departments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "departments", "1"]
+            }
+          }
+        },
+        {
+          "name": "12_Delete Department Protection Test (/api/admin/departments/1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/departments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "departments", "1"]
+            }
+          }
+        },
+        {
+          "name": "13_List All System Appointments (/api/admin/appointments)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/doctors/me",
+              "raw": "{{baseUrl}}/api/admin/appointments",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "doctors", "me"]
+              "path": ["api", "admin", "appointments"]
+            }
+          }
+        },
+        {
+          "name": "14_Override Appointment Status (/api/admin/appointments/1/status)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Confirmed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/appointments/1/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "appointments", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "15_Admin Cancel Appointment & Release Slot (/api/admin/appointments/1/cancel)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/appointments/1/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "appointments", "1", "cancel"]
+            }
+          }
+        },
+        {
+          "name": "16_Get Operational Reports Summary (/api/admin/reports/summary)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/reports/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "reports", "summary"]
+            }
+          }
+        },
+        {
+          "name": "17_RBAC Denial Test: Patient Role on Admin Endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/dashboard-stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "dashboard-stats"]
+            }
+          }
+        },
+        {
+          "name": "18_RBAC Denial Test: Doctor Role on Admin Endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/dashboard-stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "dashboard-stats"]
+            }
+          }
+        },
+        {
+          "name": "19_Unauthenticated Denial Test on Admin Endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/dashboard-stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "dashboard-stats"]
             }
           }
         }
