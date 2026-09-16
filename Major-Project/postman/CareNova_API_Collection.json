@@ -582,6 +582,48 @@
               "path": ["api", "admin", "dashboard-stats"]
             }
           }
+        },
+        {
+          "name": "20_Override Appointment Status to Completed Without Medical Record (Rejected 400)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Completed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/appointments/1/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "appointments", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "21_Override Cancelled Appointment to Completed (Rejected 400)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Completed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/appointments/1/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "appointments", "1", "status"]
+            }
+          }
         }
       ]
     }

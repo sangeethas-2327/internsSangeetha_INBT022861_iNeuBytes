@@ -993,35 +993,104 @@ async function getAppointmentById(req, res, next) {
 
 // PATCH /api/admin/appointments/:id/status
 async function overrideAppointmentStatus(req, res, next) {
+  const connection = await pool.getConnection();
   try {
     const apptId = Number(req.params.id);
-    const { status } = req.body;
+    const { status: targetStatus } = req.body;
+
+    if (!apptId || isNaN(apptId)) {
+      connection.release();
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid appointment ID provided.'
+      });
+    }
 
     const allowed = ['Confirmed', 'Pending', 'Rescheduled', 'Completed', 'Cancelled'];
-    if (!status || !allowed.includes(status)) {
+    if (!targetStatus || !allowed.includes(targetStatus)) {
+      connection.release();
       return res.status(400).json({
         success: false,
         message: `Invalid status override. Allowed values: ${allowed.join(', ')}`
       });
     }
 
-    const [appts] = await pool.query('SELECT id, status FROM appointments WHERE id = ?', [apptId]);
+    await connection.beginTransaction();
+
+    const [appts] = await connection.query(
+      'SELECT id, doctor_id, DATE_FORMAT(appointment_date, "%Y-%m-%d") AS appointmentDate, time_slot AS timeSlot, status FROM appointments WHERE id = ? FOR UPDATE',
+      [apptId]
+    );
+
     if (!appts || appts.length === 0) {
+      await connection.rollback();
+      connection.release();
       return res.status(404).json({
         success: false,
         message: 'Appointment record not found.'
       });
     }
 
-    await pool.query('UPDATE appointments SET status = ? WHERE id = ?', [status, apptId]);
+    const appt = appts[0];
+    const currentStatus = appt.status;
+
+    // Rule 1: Cancelled -> Completed is strictly forbidden
+    if (currentStatus === 'Cancelled' && targetStatus === 'Completed') {
+      await connection.rollback();
+      connection.release();
+      return res.status(400).json({
+        success: false,
+        message: 'Cannot mark a cancelled appointment as completed without a valid doctor consultation.'
+      });
+    }
+
+    // Rule 2: Setting status to Completed requires an existing medical record
+    if (targetStatus === 'Completed') {
+      const [records] = await connection.query(
+        'SELECT id FROM medical_records WHERE appointment_id = ?',
+        [apptId]
+      );
+      if (!records || records.length === 0) {
+        await connection.rollback();
+        connection.release();
+        return res.status(400).json({
+          success: false,
+          message: 'Cannot mark appointment as Completed. Completion requires a valid Doctor consultation with a recorded medical record.'
+        });
+      }
+    }
+
+    // Rule 3: Re-activating a Cancelled appointment to Confirmed/Pending/Rescheduled requires verifying slot availability
+    if (currentStatus === 'Cancelled' && (targetStatus === 'Confirmed' || targetStatus === 'Pending' || targetStatus === 'Rescheduled')) {
+      const [conflicts] = await connection.query(
+        `SELECT id FROM appointments 
+         WHERE doctor_id = ? AND appointment_date = ? AND time_slot = ? 
+           AND status IN ('Confirmed', 'Pending', 'Rescheduled') AND id != ?`,
+        [appt.doctor_id, appt.appointmentDate, appt.timeSlot, apptId]
+      );
+      if (conflicts && conflicts.length > 0) {
+        await connection.rollback();
+        connection.release();
+        return res.status(409).json({
+          success: false,
+          message: `Cannot restore appointment status to '${targetStatus}'. The time slot (${appt.timeSlot}) has already been booked by another appointment.`
+        });
+      }
+    }
+
+    await connection.query('UPDATE appointments SET status = ? WHERE id = ?', [targetStatus, apptId]);
+    await connection.commit();
+    connection.release();
 
     return res.status(200).json({
       success: true,
-      message: `Appointment status overridden to '${status}'.`,
+      message: `Appointment status overridden to '${targetStatus}'.`,
       appointmentId: apptId,
-      status
+      status: targetStatus
     });
   } catch (error) {
+    await connection.rollback();
+    connection.release();
     next(error);
   }
 }
