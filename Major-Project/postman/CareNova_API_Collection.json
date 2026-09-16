@@ -690,14 +690,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/appointments/available-slots?doctorId=1&date=2026-12-15",
+              "raw": "{{baseUrl}}/api/doctors/1/available-slots?date=2026-12-15",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "appointments", "available-slots"],
+              "path": ["api", "doctors", "1", "available-slots"],
               "query": [
-                {
-                  "key": "doctorId",
-                  "value": "1"
-                },
                 {
                   "key": "date",
                   "value": "2026-12-15"

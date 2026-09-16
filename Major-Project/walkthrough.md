@@ -1,26 +1,27 @@
-# CareNova Health — Master Project Walkthrough & Verification Report
+# CareNova Health — Master Project Walkthrough & Final Verification Report
 
 > **Project Name:** CareNova Health Healthcare / Clinic Management System  
 > **Internship Program:** iNeuBytes Major Project  
-> **Phase:** Phase 3F — Master System Integration, Final QA & Project Sign-Off  
-> **Execution Date:** September 17, 2026  
-> **Status:** 100% COMPLETED (22/22 Integration & Regression Tests Passed)  
+> **Phase:** Phase 3F — Master System Integration & Verification  
+> **Baseline Commit:** `d652ce5` (`fix(major-project): prevent invalid admin appointment completion`)  
+> **Phase 3F Commit:** `0263381` (`feat(major-project): complete phase 3f master integration and final project sign-off`)  
+> **Status:** **VERIFIED & COMPLETED (37/37 Integration & Regression Tests Passed)**  
 
 ---
 
 ## 1. Executive Summary & Project Overview
 
-**CareNova Health** is a multi-role healthcare management system engineered using a robust **Node.js, Express.js, MySQL, and Vanilla JavaScript** architecture. The application serves three distinct user roles:
+**CareNova Health** is a multi-role healthcare management system engineered using a lightweight, robust **Node.js, Express.js, MySQL, and Vanilla JavaScript** architecture. The system supports three distinct user roles:
 
-1. **Patients:** Self-registration, profile management, browsing clinical departments/doctors, querying available time slots in real time, booking appointments, and viewing personal medical records/prescriptions.
-2. **Doctors:** Professional workstation dashboard, appointment management, cross-doctor patient data isolation, executing clinical consultations (recording diagnosis, prescriptions, doctor notes, and follow-up dates), and generating immutable medical records.
-3. **Administrators:** Comprehensive system monitoring console, operational analytics & department summary reports, atomic doctor onboarding, patient/appointment management, active-doctor deletion protections, and clinical status transition guardrails.
+1. **Patients:** Self-registration, profile management, browsing clinical departments/doctors, real-time available slot querying, booking appointments, and viewing personal medical records/prescriptions.
+2. **Doctors:** Professional workstation dashboard, assigned appointment queue, cross-doctor patient data isolation (IDOR protection), executing clinical consultations (recording diagnosis, prescriptions, doctor notes, and follow-up dates), and generating immutable medical records.
+3. **Administrators:** Central monitoring console, operational analytics & department summary reports, atomic doctor onboarding, patient/appointment management, active-doctor deletion safety, and clinical status transition guardrails.
 
 ---
 
 ## 2. Approved Technology Stack
 
-The project strictly adheres to the approved, lightweight web technology stack:
+The project strictly adheres to the approved web technology stack:
 
 * **Backend Framework:** Node.js (v18+) & Express.js
 * **Database Engine:** MySQL 8.0+ utilizing native connection pooling via `mysql2/promise`
@@ -30,7 +31,7 @@ The project strictly adheres to the approved, lightweight web technology stack:
 * **Testing & API Tooling:** Postman Collection (`CareNova_API_Collection.json` with 7 structured folders), Automated Live Integration QA Runner (`scratch/run_phase3f_master_qa.js`)
 
 > [!NOTE]
-> No unapproved third-party frameworks or SaaS services (such as React, Vue, Angular, Next.js, PHP, MongoDB, Firebase, Supabase, Tailwind, Bootstrap, or external email/SMS gateways) were introduced into the repository.
+> No unapproved third-party frameworks or SaaS services (such as React, Vue, Angular, Next.js, PHP, MongoDB, Firebase, Supabase, Tailwind, Bootstrap, or external email/SMS gateways) were introduced into the codebase.
 
 ---
 
@@ -50,7 +51,7 @@ graph TD
 ### Security & Hardening Safeguards
 * **SQL Injection Prevention:** All database queries utilize parameterized placeholder binding (`?`) with `mysql2/promise`.
 * **XSS & Token Theft Protection:** JWTs are issued via `HttpOnly`, `SameSite=Lax` cookies, preventing client-side scripts from reading session tokens.
-* **Role-Based Access Control (RBAC):** Strict middleware guards (`requireAuth`, `requireRole('patient')`, `requireRole('doctor')`, `requireRole('admin')`) enforce strict endpoint security boundaries.
+* **Role-Based Access Control (RBAC):** Middleware guards (`requireAuth`, `requireRole('patient')`, `requireRole('doctor')`, `requireRole('admin')`) enforce endpoint security boundaries.
 * **IDOR & Data Isolation Guardrails:** Doctors can only view and manage appointments assigned specifically to them (`doctor_id` ownership verification). Patients can only access their own appointments and medical records (`patient_id` verification).
 * **Concurrence & Double-Booking Protection:** Database-level composite unique constraint `(doctor_id, appointment_date, time_slot)` guarantees zero overlapping appointments for any doctor.
 * **Clinical Workflow Integrity Guardrails:**
@@ -151,95 +152,124 @@ The relational database model consists of 6 core tables configured with foreign 
 
 ---
 
-## 7. Project Milestones & Lifecycle Summary
+## 7. Project Milestones & Git Commit Lineage
 
-* **Task 1 & Task 2:** Database schema design (`database/schema.sql`, `database/seed.sql`), Express app server setup, DB connection pool configuration.
-* **Phase 3A (Foundation):** Standardized API response format, central error handler middleware, department listing APIs.
-* **Phase 3B (Authentication & RBAC):** Password hashing via `bcryptjs`, JWT token issuance in HttpOnly cookies, auth middleware (`requireAuth`, `requireRole`).
-* **Phase 3C (Patient Module):** Patient self-registration, profile updates, slot availability algorithm, appointment booking with double-booking prevention.
-* **Phase 3D (Doctor Module):** Doctor workstation dashboard, assigned appointment queues, cross-doctor data isolation, consultation recording, medical record generation.
-* **Phase 3E (Admin Module & Hardening):** Admin monitoring metrics, operational reports summary, atomic doctor onboarding transaction, active-doctor deletion safety, and clinical status state guardrails.
-* **Phase 3F (Master Integration & QA):** Creation of `07_Master_Integration_Suite` in Postman, implementation of master live runner `run_phase3f_master_qa.js`, execution of 22 end-to-end integration and regression tests, and final documentation sign-off.
+* **Task 1 (`9bf5026`, `078a8a3`):** HTML5/CSS3/Vanilla JS landing page, navigation targets, back-to-top UI button, and embedded Google Map.
+* **Task 2 (`60fe9ee`):** Core doctor appointment booking logic and database foundation.
+* **Phase 3A (`1250dee`, `23e182d`):** Full-stack project foundation, central error handler middleware, and department listing APIs.
+* **Phase 3B (`4c93308`, `a85f525`):** Password hashing via `bcryptjs`, JWT token issuance in HttpOnly cookies, auth middleware (`requireAuth`, `requireRole`).
+* **Phase 3C (`eca5fcc`):** Patient self-registration, profile updates, slot availability algorithm, appointment booking with double-booking prevention.
+* **Phase 3D (`0327654`, `2ff3463`):** Doctor workstation dashboard, assigned appointment queues, cross-doctor data isolation, consultation recording, medical record generation.
+* **Phase 3E (`61073b2`, `d652ce5`):** Admin monitoring metrics, operational reports summary, atomic doctor onboarding transaction, active-doctor deletion safety, and clinical status transition guardrails.
+* **Phase 3F (`0263381`):** Master integration test runner (`scratch/run_phase3f_master_qa.js`), Postman Collection consolidation (`postman/CareNova_API_Collection.json`), and comprehensive project documentation (`walkthrough.md`).
 
 ---
 
-## 8. Master QA Test Matrix & Live Execution Results
+## 8. Master QA Test Matrix & Execution Results (37 Tests)
 
-All 22 integration and regression tests were executed against the live Express app server and MySQL database via `node scratch/run_phase3f_master_qa.js`:
+All **37 explicit cross-module integration and regression tests** were executed against the live Express app server and MySQL database via `node scratch/run_phase3f_master_qa.js`:
 
 ```
 ========================================================================================
-CareNova Health — Phase 3F Master System Integration & Regression QA Suite
+CareNova Health — Phase 3F Master System Integration & Cross-Module Regression QA Suite
 ========================================================================================
 
---- MODULE 1: SYSTEM HEALTH & PUBLIC DEPARTMENTS ---
-[PASS] M1: System Health API (HTTP 200 OK)
-[PASS] M1: Public Clinical Departments Listing (HTTP 200 OK)
+--- MODULE 1: SYSTEM HEALTH & PUBLIC DEPARTMENTS (PHASE 3A) ---
+[PASS] [M1-01] [Phase 3A] System Health Check API
+[PASS] [M1-02] [Phase 3A] Public Clinical Departments Listing
+[PASS] [M1-03] [Phase 3A] Public Doctor Details Query
+[PASS] [M1-04] [Phase 3A] Non-Existent Doctor Query
+[PASS] [M1-05] [Phase 3A] Public Doctor Filter Search by Department
 
---- MODULE 2: AUTHENTICATION & ROLE-BASED ACCESS CONTROL (RBAC) ---
-[PASS] M2: Patient Self-Registration (HTTP 201 Created)
-[PASS] M2: Patient Login Session (HTTP 200 OK + JWT Cookie)
-[PASS] M2: Doctor A Login Session (HTTP 200 OK + JWT Cookie)
-[PASS] M2: Doctor B Login Session (HTTP 200 OK + JWT Cookie)
-[PASS] M2: Admin Login Session (HTTP 200 OK + JWT Cookie)
-[PASS] M2: RBAC Enforcement (Patient 403, Doctor 403, Unauthenticated 401)
+--- MODULE 2: AUTHENTICATION & ROLE-BASED ACCESS CONTROL (PHASE 3B) ---
+[PASS] [M2-01] [Phase 3B] Patient Self-Registration
+[PASS] [M2-02] [Phase 3B] Duplicate Email Registration Safeguard
+[PASS] [M2-03] [Phase 3B] Patient Login & Cookie Issuance
+[PASS] [M2-04] [Phase 3B] Session Verification /api/auth/me
+[PASS] [M2-05] [Phase 3B] Invalid Password Login Guard
+[PASS] [M2-06] [Phase 3B] Doctor A Login Session
+[PASS] [M2-07] [Phase 3B] Doctor B Login Session
+[PASS] [M2-08] [Phase 3B] Admin Login Session
+[PASS] [M2-09] [Phase 3B] RBAC: Unauthenticated Admin Endpoint Access
+[PASS] [M2-10] [Phase 3B] RBAC: Patient Access to Admin Endpoint
+[PASS] [M2-11] [Phase 3B] RBAC: Doctor Access to Admin Endpoint
+[PASS] [M2-12] [Phase 3B] User Session Logout
 
---- MODULE 3: PATIENT PORTAL & APPOINTMENT BOOKING ---
-[PASS] M3: Available Time Slots Query (HTTP 200 OK)
-[PASS] M3: Patient Appointment Booking (HTTP 201 Created)
-[PASS] M3: Double-Booking Protection Safeguard (HTTP 409 Conflict)
-[PASS] M3: Patient Personal Appointments View (HTTP 200 OK)
+--- MODULE 3: PATIENT PORTAL & APPOINTMENTS (PHASE 3C) ---
+[PASS] [M3-01] [Phase 3C] Available Time Slots Query
+[PASS] [M3-02] [Phase 3C] Patient Personal Profile View
+[PASS] [M3-03] [Phase 3C] Patient Profile Update
+[PASS] [M3-04] [Phase 3C] Patient Appointment Booking
+[PASS] [M3-05] [Phase 3C] Double-Booking Protection Safeguard
+[PASS] [M3-06] [Phase 3C] Patient Personal Appointments List View
+[PASS] [M3-07] [Phase 3C] Patient Detailed Appointment View
 
---- MODULE 4: DOCTOR WORKSTATION & CLINICAL CONSULTATIONS ---
-[PASS] M4: Doctor Personal Dashboard & Stats (HTTP 200 OK)
-[PASS] M4: Cross-Doctor Data Isolation Guard (HTTP 403 Forbidden)
-[PASS] M4: Doctor Consultation Submission & Medical Record Authoring (HTTP 201 Created)
-[PASS] M4: Patient Read Access to Medical Records (HTTP 200 OK)
+--- MODULE 4: DOCTOR WORKSTATION & CONSULTATIONS (PHASE 3D) ---
+[PASS] [M4-01] [Phase 3D] Doctor Workstation Dashboard Metrics
+[PASS] [M4-02] [Phase 3D] Doctor Personal Appointments Queue
+[PASS] [M4-03] [Phase 3D] Doctor Assigned Appointment View
+[PASS] [M4-04] [Phase 3D] Cross-Doctor Data Isolation Guard (IDOR)
+[PASS] [M4-05] [Phase 3D] Doctor Consultation Submission & Medical Record Creation
+[PASS] [M4-06] [Phase 3D] Duplicate Consultation Prevention Safeguard
+[PASS] [M4-07] [Phase 3D] Patient Read Access to Personal Medical Records
 
---- MODULE 5: ADMIN CONSOLE, HARDENED CONTROLS & AUDIT REPORTS ---
-[PASS] M5: Admin System Dashboard Statistics (HTTP 200 OK)
-[PASS] M5: Admin Operational Analytics & Department Summary (HTTP 200 OK)
-[PASS] M5: Admin Doctor Onboarding Atomic Transaction (HTTP 201 Created)
-[PASS] M5: Department Active-Doctor Deletion Protection Guard (HTTP 400 Bad Request)
-[PASS] M5: Admin Status Guardrail: Completion WITHOUT medical record (HTTP 400 REJECTED)
-[PASS] M5: Admin Status Guardrail: Cancelled -> Completed (HTTP 400 REJECTED)
+--- MODULE 5: ADMIN CONSOLE, HARDENED CONTROLS & AUDIT REPORTS (PHASE 3E) ---
+[PASS] [M5-01] [Phase 3E] Admin System Overview Statistics
+[PASS] [M5-02] [Phase 3E] Admin Operational Analytics Summary Report
+[PASS] [M5-03] [Phase 3E] Admin Doctor Onboarding Atomic Transaction
+[PASS] [M5-04] [Phase 3E] Active-Doctor Department Deletion Safeguard
+[PASS] [M5-05] [Phase 3E] Clinical Guardrail: Completion WITHOUT Medical Record
+[PASS] [M5-06] [Phase 3E] Clinical Guardrail: Cancelled -> Completed State Transition
 
 Master Data Teardown Completed Cleanly.
 
 ========================================================================================
 SUMMARY OF MASTER SYSTEM INTEGRATION & REGRESSION QA RESULTS:
-TOTAL TESTS EXECUTED: 22
-PASS: 22
+TOTAL EXPLICIT TESTS EXECUTED: 37
+PASS: 37
 FAIL: 0
+BLOCKED: 0
 ========================================================================================
 ```
 
 ---
 
-## 9. Security & Hardening Verification Audit
+## 9. System Notifications & Audit History Traceability
 
-1. **Parameterization Check:** Verified 100% of SQL queries across all controllers use parameterized placeholders (`?`).
-2. **RBAC & Authorization Audit:** Verified that unauthorized role attempts return HTTP 403 Forbidden or HTTP 401 Unauthorized.
-3. **Data Isolation Audit:** Doctor B attempting to view Doctor A's patient appointment returns HTTP 403 Forbidden.
-4. **Clinical Workflow Integrity:** Admin status modification endpoint (`PATCH /api/admin/appointments/:id/status`) strictly prevents setting status to `Completed` if no `medical_records` row exists, and blocks transitions from `Cancelled` to `Completed`.
-5. **Teardown Verification:** All temporary test accounts, appointments, and medical records created during the master QA execution are automatically cleaned up from MySQL at the end of the test run.
+### System Notifications Traceability
+* **In-App Alerts & Banners:** Implemented across UI views (`client/js/auth.js`, `client/js/patient.js`, `client/register.html`, `client/patient-profile.html`) using dedicated alert containers (`.form-alert`, `#profileAlert`, `#bookingAlert`, `#authAlert`) providing real-time feedback.
+* **Upcoming Appointment Reminders:** Rendered dynamically in patient dashboard views (`PatientApp.initDashboard()` filtering upcoming scheduled appointments).
+* **Out of Scope:** External SMS and Email gateways (e.g. Twilio, SendGrid) are explicitly out of scope per architectural requirements.
 
----
-
-## 10. Repository Integrity & Preservation Audit
-
-* **Task-1 & Task-2 Preservation:** Initial Task 1 (`c270d4c`) and Task 2 (`bd4812f`) commits remain intact.
-* **Database DDL Schema Stability:** No modifications were made to `database/schema.sql` or `database/seed.sql`.
-* **Zero Application Code Changes in Phase 3F:** Application files inside `server/controllers/`, `server/routes/`, `server/middleware/`, and `client/` remained completely untouched during Phase 3F.
+### Audit History Traceability
+* **Record & Metric Visibility:** Admin endpoints provide system-wide visibility of appointment records, their current statuses, creation/update timestamps, and operational metrics.
+* **Audit Architecture:** A separate historical status-transition audit log is not implemented, and no `audit_logs` table was introduced, preserving the approved zero-DDL architecture.
 
 ---
 
-## 11. Final iNeuBytes Internship Submission Checklist
+## 10. Postman Collection Inventory (`07_Master_Integration_Suite`)
 
-- [x] All 3 core user roles (Patient, Doctor, Admin) fully functional.
+The `07_Master_Integration_Suite` folder in `postman/CareNova_API_Collection.json` contains 10 E2E integration requests:
+
+1. `01_System Health Verification` (`GET /api/health`) — Validates server and database connectivity.
+2. `02_Patient Registration (E2E Master Flow)` (`POST /api/auth/register`) — Registers temporary test patient.
+3. `03_Patient Session Login` (`POST /api/auth/login`) — Authenticates patient and issues JWT HttpOnly cookie.
+4. `04_Check Doctor Available Time Slots` (`GET /api/doctors/1/available-slots?date=2026-12-15`) — Queries open slots.
+5. `05_Patient Book Appointment` (`POST /api/appointments`) — Books appointment for Doctor 1.
+6. `06_Doctor Session Login` (`POST /api/auth/login`) — Authenticates assigned Doctor account.
+7. `07_Doctor Submit Consultation & Record` (`POST /api/doctors/me/appointments/1/consultation`) — Submits diagnosis and creates medical record.
+8. `08_Admin Session Login` (`POST /api/auth/login`) — Authenticates Admin account.
+9. `09_Admin Verify Dashboard Statistics` (`GET /api/admin/dashboard-stats`) — Verifies system overview metrics.
+10. `10_Admin Audit Reports Summary` (`GET /api/admin/reports/summary`) — Verifies operational analytics and department summary.
+
+---
+
+## 11. Final iNeuBytes Submission Verification
+
+- [x] Task-1 (`9bf5026`, `078a8a3`) and Task-2 (`60fe9ee`) commits untouched.
 - [x] Postman API Collection updated with all 7 modules (`CareNova_API_Collection.json`).
-- [x] Master QA script created and executed (`scratch/run_phase3f_master_qa.js`).
-- [x] Comprehensive Walkthrough documentation produced (`walkthrough.md`).
-- [x] All 22 automated integration and regression tests passing.
-- [x] Zero application source code regressions.
-- [x] Zero secrets or credentials exposed in codebase or documentation.
+- [x] Master QA runner updated and verified (`scratch/run_phase3f_master_qa.js`).
+- [x] All 37 automated integration & regression tests passing (100% PASS).
+- [x] Zero database DDL schema modifications.
+- [x] Zero application source code modifications in Phase 3F.
+- [x] Zero exposed secrets or hardcoded passwords in repository.
