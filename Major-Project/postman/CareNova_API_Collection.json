@@ -626,6 +626,195 @@
           }
         }
       ]
+    },
+    {
+      "name": "07_Master_Integration_Suite",
+      "item": [
+        {
+          "name": "01_System Health Verification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            }
+          }
+        },
+        {
+          "name": "02_Patient Registration (E2E Master Flow)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Master\",\n  \"lastName\": \"Integration\",\n  \"email\": \"master.e2e@carenova.health\",\n  \"password\": \"demo123\",\n  \"phone\": \"9876543888\",\n  \"gender\": \"female\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "03_Patient Session Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sangeetha.patient@example.com\",\n  \"password\": \"demo123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "04_Check Doctor Available Time Slots",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments/available-slots?doctorId=1&date=2026-12-15",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "appointments", "available-slots"],
+              "query": [
+                {
+                  "key": "doctorId",
+                  "value": "1"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-12-15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "05_Patient Book Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"doctorId\": 1,\n  \"departmentId\": 1,\n  \"appointmentDate\": \"2026-12-15\",\n  \"timeSlot\": \"02:00 PM\",\n  \"reasonForVisit\": \"Master E2E Lifecycle Verification\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/appointments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "appointments"]
+            }
+          }
+        },
+        {
+          "name": "06_Doctor Session Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sarah.jenkins@carenova.health\",\n  \"password\": \"demo123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "07_Doctor Submit Consultation & Record",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"diagnosis\": \"Essential Hypertension\",\n  \"prescription\": \"Tab Amlodipine 5mg OD x 30 days\",\n  \"doctorNotes\": \"Patient healthy. Followup in 1 month.\",\n  \"recommendedFollowupDate\": \"2027-01-15\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments/1/consultation",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments", "1", "consultation"]
+            }
+          }
+        },
+        {
+          "name": "08_Admin Session Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@carenova.health\",\n  \"password\": \"demo123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "09_Admin Verify Dashboard Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/dashboard-stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "dashboard-stats"]
+            }
+          }
+        },
+        {
+          "name": "10_Admin Audit Reports Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/reports/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "reports", "summary"]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [
