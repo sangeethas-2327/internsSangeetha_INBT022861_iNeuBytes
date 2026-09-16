@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "CareNova Health API - Phase 3B Auth & RBAC Collection",
-    "description": "Postman API test suite for CareNova Health Healthcare Management System — Phase 3B Authentication and Role-Based Access Control (RBAC).",
+    "name": "CareNova Health API - Full Master Collection (Phase 3D)",
+    "description": "Postman API test suite for CareNova Health Healthcare Management System — Phase 3D Doctor Module, Authentication, RBAC, and System Endpoints.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -68,7 +68,7 @@
           }
         },
         {
-          "name": "Login Doctor Account",
+          "name": "Login Doctor Account (Doctor Sarah)",
           "request": {
             "method": "POST",
             "header": [
@@ -80,6 +80,27 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"sarah.jenkins@carenova.health\",\n  \"password\": \"demo123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Doctor B Account (Doctor Marcus)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"marcus.vance@carenova.health\",\n  \"password\": \"demo123\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/login",
@@ -171,6 +192,275 @@
               "raw": "{{baseUrl}}/api/test/admin",
               "host": ["{{baseUrl}}"],
               "path": ["api", "test", "admin"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04_Doctor_Module",
+      "item": [
+        {
+          "name": "01_Get Doctor Profile (/api/doctors/me)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me"]
+            }
+          }
+        },
+        {
+          "name": "02_Update Doctor Profile & Schedule (/api/doctors/me)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qualification\": \"MD, FACC (Cardiology)\",\n  \"experienceYears\": 12,\n  \"consultationFee\": 850,\n  \"bio\": \"Senior Cardiologist specializing in non-invasive cardiology and preventative heart care.\",\n  \"availableDays\": \"Mon,Tue,Wed,Thu,Fri\",\n  \"availableSlots\": [\"09:00 AM\", \"10:30 AM\", \"02:00 PM\", \"04:00 PM\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me"]
+            }
+          }
+        },
+        {
+          "name": "03_Get Doctor Dashboard Stats (/api/doctors/me/dashboard)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "04_List Assigned Appointments (/api/doctors/me/appointments)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments"]
+            }
+          }
+        },
+        {
+          "name": "05_Filter Appointments by Status (/api/doctors/me/appointments?status=Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments?status=Confirmed",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Confirmed"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "06_Filter Appointments by Date (/api/doctors/me/appointments?date=2026-09-15)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments?date=2026-09-15",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-09-15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "07_Search Appointments (/api/doctors/me/appointments?search=Sangeetha)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments?search=Sangeetha",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Sangeetha"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "08_Get Single Appointment Detail (/api/doctors/me/appointments/1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments", "1"]
+            }
+          }
+        },
+        {
+          "name": "09_Update Appointment Status (/api/doctors/me/appointments/1/status)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Cancelled\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments/1/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "10_Submit Consultation & Record Medical Record (/api/doctors/me/appointments/1/consultation)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"diagnosis\": \"Essential Hypertension - Normal lipid panel\",\n  \"prescription\": \"Tab Amlodipine 5mg OD x 30 days\",\n  \"doctorNotes\": \"Patient advised to reduce daily salt intake and exercise 30 mins daily.\",\n  \"recommendedFollowupDate\": \"2026-10-15\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments/1/consultation",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments", "1", "consultation"]
+            }
+          }
+        },
+        {
+          "name": "11_Get Authored Medical Records (/api/doctors/me/records)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/records",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "records"]
+            }
+          }
+        },
+        {
+          "name": "12_Update Authored Medical Record (/api/doctors/me/records/1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"diagnosis\": \"Updated Diagnosis: Normal sinus rhythm with mild lipid elevation\",\n  \"prescription\": \"Tab Atorvastatin 10mg OD x 30 days\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/records/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "records", "1"]
+            }
+          }
+        },
+        {
+          "name": "13_Public List Doctors (/api/doctors)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "14_Public Get Doctor By ID (/api/doctors/1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "1"]
+            }
+          }
+        },
+        {
+          "name": "15_Public Get Available Slots (/api/doctors/1/available-slots?date=2026-09-15)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/1/available-slots?date=2026-09-15",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "1", "available-slots"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-09-15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "16_IDOR Protection Test (Doctor A Access Doctor B Appt)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me/appointments/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me", "appointments", "2"]
+            }
+          }
+        },
+        {
+          "name": "17_RBAC Access Denial Test (Patient Access Doctor Workstation)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/doctors/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "doctors", "me"]
             }
           }
         }
